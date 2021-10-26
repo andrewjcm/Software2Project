@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreen">
+   <children>
+      <AnchorPane layoutX="200.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F0F8FF;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutY="39.0" prefHeight="35.0" prefWidth="600.0" text="%App_Title" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameTextBox" focusTraversable="false" layoutX="200.0" layoutY="152.0" onKeyPressed="#onUsernameKeyPressed" prefHeight="25.0" prefWidth="200.0" promptText="%Username" />
+            <PasswordField fx:id="passwordTextBox" focusTraversable="false" layoutX="200.0" layoutY="188.0" onKeyPressed="#onPasswordKeyPressed" prefHeight="25.0" prefWidth="200.0" promptText="%Password" />
+            <Button fx:id="loginButton" layoutX="290.0" layoutY="222.0" mnemonicParsing="false" onAction="#onLoginButton" prefWidth="110.0" style="-fx-background-color: #89CFF0;" text="%Login" />
+            <Button fx:id="exitButton" layoutX="200.0" layoutY="222.0" mnemonicParsing="false" onAction="#onExitButton" prefWidth="75.0" style="-fx-background-color: FF7779;" text="%Exit" />
+            <Label fx:id="locationLabel" layoutX="200.0" layoutY="126.0" prefWidth="200.0" text="%Location" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

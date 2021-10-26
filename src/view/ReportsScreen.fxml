@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsScreen">
+    <AnchorPane layoutY="-2.0" maxHeight="600.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
+        <effect>
+            <DropShadow />
+        </effect>
+        <Button fx:id="appointmentsButton" layoutY="44.0" mnemonicParsing="false" onAction="#onAppointmentsButton" prefHeight="25.0" prefWidth="135.0" text="%Appointments" />
+        <Button fx:id="customersButton" layoutY="69.0" mnemonicParsing="false" onAction="#onCustomersButton" prefHeight="25.0" prefWidth="135.0" text="%Customers" />
+        <Button fx:id="reportsButton" layoutY="94.0" mnemonicParsing="false" onAction="#onReportsButton" prefHeight="25.0" prefWidth="135.0" text="%Reports" />
+        <Label layoutX="47.0" layoutY="14.0" text="%Menu" />
+        <Button fx:id="logoutButton" layoutX="14.0" layoutY="552.0" mnemonicParsing="false" onAction="#onLogoutButton" prefHeight="25.0" prefWidth="105.0" text="%Logout" />
+    </AnchorPane>
+    <AnchorPane layoutX="865.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
+        <effect>
+            <DropShadow />
+        </effect>
+        <children>
+            <Button fx:id="reportOneButton" layoutY="44.0" mnemonicParsing="false" onAction="#onReportOneButton" prefHeight="25.0" prefWidth="135.0" text="Report 1" />
+            <Button fx:id="reportTwoButton" layoutY="69.0" mnemonicParsing="false" onAction="#onReportTwoButton" prefHeight="25.0" prefWidth="135.0" text="Report 2" />
+         <Button fx:id="reportThreeButton" layoutY="94.0" mnemonicParsing="false" onAction="#onReportThreeButton" prefHeight="25.0" prefWidth="135.0" text="Report 3" />
+        </children>
+    </AnchorPane>
+    <VBox layoutX="135.0" prefHeight="600.0" prefWidth="730.0">
+        <children>
+            <AnchorPane prefHeight="150.0" prefWidth="730.0">
+                <children>
+                    <Label alignment="CENTER" layoutX="-1.0" layoutY="37.0" prefWidth="730.0" text="%Reports" textAlignment="CENTER">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Label>
+                </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="450.0" prefWidth="200.0">
+                <TableView fx:id="reportsTable" prefHeight="450.0" prefWidth="730.0">
+                    <columns>
+                    </columns>
+                </TableView>
+            </AnchorPane>
+        </children>
+    </VBox>
+</AnchorPane>

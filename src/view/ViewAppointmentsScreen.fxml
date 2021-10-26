@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewAppointmentsScreen">
+      <AnchorPane layoutY="-2.0" maxHeight="600.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
+         <effect>
+            <DropShadow />
+         </effect>
+            <Button fx:id="appointmentsButton" layoutY="44.0" mnemonicParsing="false" onAction="#onAppointmentsButton" prefHeight="25.0" prefWidth="135.0" text="%Appointments" />
+            <Button fx:id="customersButton" layoutY="69.0" mnemonicParsing="false" onAction="#onCustomersButton" prefHeight="25.0" prefWidth="135.0" text="%Customers" />
+            <Button fx:id="reportsButton" layoutY="94.0" mnemonicParsing="false" onAction="#onReportsButton" prefHeight="25.0" prefWidth="135.0" text="%Reports" />
+            <Label layoutX="47.0" layoutY="14.0" text="%Menu" />
+            <Button fx:id="logoutButton" layoutX="14.0" layoutY="552.0" mnemonicParsing="false" onAction="#onLogoutButton" prefHeight="25.0" prefWidth="105.0" text="%Logout" />
+      </AnchorPane>
+   <AnchorPane layoutX="865.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
+      <effect>
+         <DropShadow />
+      </effect>
+      <children>
+         <Button fx:id="addAppointmentButton" layoutY="44.0" mnemonicParsing="false" onAction="#onAddAppointmentButton" prefHeight="25.0" prefWidth="135.0" text="%Add" />
+         <Button fx:id="modifyAppointmentButton" layoutY="69.0" mnemonicParsing="false" onAction="#onModifyAppointmentButton" prefHeight="25.0" prefWidth="135.0" text="%Modify" />
+         <Button fx:id="deleteAppointmentButton" layoutY="94.0" mnemonicParsing="false" onAction="#onDeleteAppointmentButton" prefHeight="25.0" prefWidth="135.0" text="%Delete" />
+      </children>
+   </AnchorPane>
+   <VBox layoutX="135.0" prefHeight="600.0" prefWidth="730.0">
+      <children>
+         <AnchorPane prefHeight="150.0" prefWidth="730.0">
+            <children>
+               <RadioButton fx:id="viewWeekRadioButton" layoutX="239.0" layoutY="118.0" mnemonicParsing="false" onAction="#onViewWeekRadioButton" text="%Week_View">
+                  <toggleGroup>
+                    <ToggleGroup fx:id="tGroup" />
+                  </toggleGroup></RadioButton>
+               <RadioButton fx:id="viewMonthRadioButton" alignment="CENTER_RIGHT" layoutX="373.0" layoutY="118.0" mnemonicParsing="false" onAction="#OnViewMonthRadioButton" text="%Month_View" toggleGroup="$tGroup">
+                  <padding>
+                     <Insets left="10.0" />
+                  </padding>
+               </RadioButton>
+               <Label alignment="CENTER" layoutX="-1.0" layoutY="37.0" prefWidth="730.0" text="%Appointments" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+               </Label>
+               <DatePicker layoutX="527.0" layoutY="114.0" />
+               <RadioButton fx:id="viewAllRadioButton" layoutX="140.0" layoutY="118.0" mnemonicParsing="false" onAction="#onViewAllRadioButton" selected="true" text="%View_All" toggleGroup="$tGroup" />
+            </children>
+         </AnchorPane>
+         <TableView prefHeight="450.0" prefWidth="730.0">
+           <columns>
+             <TableColumn prefWidth="58.199981689453125" text="ID" />
+             <TableColumn prefWidth="92.20001220703125" text="Customer" />
+               <TableColumn prefWidth="75.0" text="Title" />
+               <TableColumn prefWidth="75.0" text="Description" />
+               <TableColumn prefWidth="75.0" text="Type" />
+               <TableColumn prefWidth="75.0" text="Location" />
+               <TableColumn prefWidth="91.20001220703125" text="Date" />
+               <TableColumn prefWidth="95.5999755859375" text="Start Time" />
+               <TableColumn prefWidth="90.79998779296875" text="End Time" />
+           </columns>
+         </TableView>
+      </children>
+   </VBox>
+</AnchorPane>
