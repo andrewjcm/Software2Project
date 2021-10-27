@@ -77,4 +77,8 @@ public class Division {
     public void setCountry(Country country) {
         this.country = country;
     }
+
+    public String toString(){
+        return name;
+    }
 }

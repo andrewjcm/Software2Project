@@ -1,11 +1,13 @@
 package main;
 
 import controller.GlobalController;
+import dao.AppointmentsDao;
 import dao.CountriesDao;
 import dao.DBConnection;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import model.Appointment;
 import model.Country;
 
 

@@ -33,7 +33,7 @@ public class DivisionsDao {
         ObservableList<Division> allDivisions = FXCollections.observableArrayList();
 
         try {
-            String sql = "SELECT * FROM Divisions";
+            String sql = "SELECT * FROM first_level_divisions";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
@@ -50,10 +50,13 @@ public class DivisionsDao {
     }
 
     public static Division getDivision(int id) throws SQLException {
-        String sql = "SELECT * FROM Divisions WHERE id=" + id;
+        String sql = "SELECT * FROM first_level_divisions WHERE Division_ID=" + id;
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        return createCountryObj(rs);
+        if (rs.next())
+            return createDivisionObj(rs);
+        else
+            return null;
     }
 }
 

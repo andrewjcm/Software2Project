@@ -77,4 +77,8 @@ public class User {
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
+
+    public String toString(){
+        return userName;
+    }
 }

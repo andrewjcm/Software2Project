@@ -107,4 +107,8 @@ public class Customer {
     public void setDivision(Division division) {
         this.division = division;
     }
+
+    public String toString(){
+        return name;
+    }
 }

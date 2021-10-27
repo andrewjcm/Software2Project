@@ -44,9 +44,12 @@ public class CountriesDao {
     }
 
     public static Country getCountry(int id) throws SQLException {
-            String sql = "SELECT * FROM Countries WHERE id=" + id;
+            String sql = "SELECT * FROM Countries WHERE Country_ID=" + id;
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            return createCountryObj(rs);
+            if (rs.next())
+                return createCountryObj(rs);
+            else
+                return null;
     }
 }

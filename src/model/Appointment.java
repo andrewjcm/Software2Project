@@ -148,4 +148,8 @@ public class Appointment {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
+
+    public String toString(){
+        return "ID: " + id + " " + customer + " " + start;
+    }
 }
