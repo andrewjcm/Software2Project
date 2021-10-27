@@ -1,18 +1,17 @@
 package model;
 
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 
 public class Division {
     private int id;
     private String name;
-    private DateTimeFormatter createDate;
+    private Timestamp createDate;
     private String createdBy;
     private Timestamp lastUpdate;
     private String lastUpdatedBy;
     private Country country;
 
-    public Division(int id, String name, DateTimeFormatter createDate, String createdBy, Timestamp lastUpdate,
+    public Division(int id, String name, Timestamp createDate, String createdBy, Timestamp lastUpdate,
                     String lastUpdatedBy, Country country) {
         this.id = id;
         this.name = name;
@@ -39,11 +38,11 @@ public class Division {
         this.name = name;
     }
 
-    public DateTimeFormatter getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(DateTimeFormatter createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 

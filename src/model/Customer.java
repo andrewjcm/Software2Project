@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 
 public class Customer {
     private int id;
@@ -9,13 +8,13 @@ public class Customer {
     private String address;
     private String postalCode;
     private String phone;
-    private DateTimeFormatter createDate;
+    private Timestamp createDate;
     private String createdBy;
     private Timestamp lastUpdate;
     private String lastUpdatedBy;
     private Division division;
 
-    public Customer(int id, String name, String address, String postalCode, String phone, DateTimeFormatter createDate,
+    public Customer(int id, String name, String address, String postalCode, String phone, Timestamp createDate,
                     String createdBy, Timestamp lastUpdate, String lastUpdatedBy, Division division) {
         this.id = id;
         this.name = name;
@@ -69,11 +68,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    public DateTimeFormatter getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(DateTimeFormatter createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 

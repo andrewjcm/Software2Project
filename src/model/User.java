@@ -1,18 +1,17 @@
 package model;
 
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 
 public class User {
     private int id;
     private String userName;
     private String password;
-    private DateTimeFormatter createDate;
+    private Timestamp createDate;
     private String createdBy;
     private Timestamp lastUpdate;
     private String lastUpdatedBy;
 
-    public User(int id, String userName, String password, DateTimeFormatter createDate, String createdBy,
+    public User(int id, String userName, String password, Timestamp createDate, String createdBy,
                 Timestamp lastUpdate, String lastUpdatedBy) {
         this.id = id;
         this.userName = userName;
@@ -47,11 +46,11 @@ public class User {
         this.password = password;
     }
 
-    public DateTimeFormatter getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(DateTimeFormatter createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 

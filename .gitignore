@@ -7,6 +7,8 @@
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+/src/Password/
+/src/Password/Password.java
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
@@ -42,3 +44,4 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+/src/Password/

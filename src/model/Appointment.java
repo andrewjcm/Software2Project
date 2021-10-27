@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 
 public class Appointment {
     private int id;
@@ -9,9 +8,9 @@ public class Appointment {
     private String description;
     private String location;
     private String type;
-    private DateTimeFormatter start;
-    private DateTimeFormatter end;
-    private DateTimeFormatter createDate;
+    private Timestamp start;
+    private Timestamp end;
+    private Timestamp createDate;
     private String createdBy;
     private Timestamp lastUpdate;
     private String lastUpdatedBy;
@@ -19,8 +18,8 @@ public class Appointment {
     private User user;
     private Contact contact;
 
-    public Appointment(int id, String title, String description, String location, String type, DateTimeFormatter start,
-                       DateTimeFormatter end, DateTimeFormatter createDate, String createdBy, Timestamp lastUpdate,
+    public Appointment(int id, String title, String description, String location, String type, Timestamp start,
+                       Timestamp end, Timestamp createDate, String createdBy, Timestamp lastUpdate,
                        String updatedBy, Customer customer, User user, Contact contact) {
         this.id = id;
         this.title = title;
@@ -78,27 +77,27 @@ public class Appointment {
         this.type = type;
     }
 
-    public DateTimeFormatter getStart() {
+    public Timestamp getStart() {
         return start;
     }
 
-    public void setStart(DateTimeFormatter start) {
+    public void setStart(Timestamp start) {
         this.start = start;
     }
 
-    public DateTimeFormatter getEnd() {
+    public Timestamp getEnd() {
         return end;
     }
 
-    public void setEnd(DateTimeFormatter end) {
+    public void setEnd(Timestamp end) {
         this.end = end;
     }
 
-    public DateTimeFormatter getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(DateTimeFormatter createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
