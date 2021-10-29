@@ -18,9 +18,7 @@ import model.Country;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DBConnection.startConnection();
         GlobalController.loginScreen(primaryStage);
-        DBConnection.closeConnection();
     }
 
     /**
@@ -28,6 +26,8 @@ public class Main extends Application {
      * @param args None.
      */
     public static void main(String[] args) {
+        DBConnection.startConnection();
         launch(args);
+        DBConnection.closeConnection();
     }
 }

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
 import model.Division;
+import utils.Time.TZConverter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class DivisionsDao {
+
+    private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
 
     private static Division createDivisionObj(ResultSet rs) throws SQLException {
         int id = rs.getInt("Division_ID");
@@ -21,29 +24,31 @@ public class DivisionsDao {
         String updatedBy = rs.getString("Last_Updated_By");
         int country_id = rs.getInt("Country_ID");
 
-        // TODO: Create "All" lists for each DOA to check prior to making a DB query.
-        Country country = CountriesDao.getCountry(country_id);
+        // Lambda function to locate the Country object in an ObservableList by ID.
+        Country country = CountriesDao.getAllCountries().stream().filter(
+                c -> c.getId() == country_id
+        ).findFirst().orElse(null);
         return new Division(
-                id, name, createDate, createdBy,
-                updateDate, updatedBy, country
+                id, name, TZConverter.fromDb(createDate), createdBy,
+                TZConverter.fromDb(updateDate), updatedBy, country
         );
     }
 
     public static ObservableList<Division> getAllDivisions(){
-        ObservableList<Division> allDivisions = FXCollections.observableArrayList();
+        if (allDivisions.size() == 0) {
+            try {
+                String sql = "SELECT * FROM first_level_divisions";
 
-        try {
-            String sql = "SELECT * FROM first_level_divisions";
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
 
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                allDivisions.add(createDivisionObj(rs));
+                while (rs.next()) {
+                    allDivisions.add(createDivisionObj(rs));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return allDivisions;

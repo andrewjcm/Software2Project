@@ -1,10 +1,12 @@
 package controller;
 
+import dao.AppointmentsDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,7 +74,17 @@ public class AddAppointmentScreen implements Initializable {
 
     public void onSaveAppointmentButton(ActionEvent actionEvent) throws IOException {
 
-        // TODO: Add save action
+        // TODO: Complete save action after combo boxes
+       /* AppointmentsDao.addAppointment(
+                new Appointment(
+                        AppointmentsDao.getIncrementedApptId(),
+                        appointmentContactNameTextField.getText(),
+                        appointmentLocationTextField.getText(),
+                        appointmentTypeTextField.getText(),
+
+                )
+        );
+        */
 
         Stage stage = (Stage) saveAppointmentButton.getScene().getWindow();
         GlobalController.viewAppointmentScreen(stage);

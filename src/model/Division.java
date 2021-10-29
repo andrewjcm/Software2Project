@@ -1,17 +1,17 @@
 package model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Division {
     private int id;
     private String name;
-    private Timestamp createDate;
+    private LocalDateTime createDate;
     private String createdBy;
-    private Timestamp lastUpdate;
+    private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private Country country;
 
-    public Division(int id, String name, Timestamp createDate, String createdBy, Timestamp lastUpdate,
+    public Division(int id, String name, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate,
                     String lastUpdatedBy, Country country) {
         this.id = id;
         this.name = name;
@@ -38,11 +38,11 @@ public class Division {
         this.name = name;
     }
 
-    public Timestamp getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -54,11 +54,11 @@ public class Division {
         this.createdBy = createdBy;
     }
 
-    public Timestamp getLastUpdate() {
+    public LocalDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    public void setLastUpdate(LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

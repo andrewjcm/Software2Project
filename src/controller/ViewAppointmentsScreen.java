@@ -1,21 +1,17 @@
 package controller;
 
+import dao.AppointmentsDao;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import utils.GlobalLocale;
+import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class ViewAppointmentsScreen implements Initializable {
@@ -23,7 +19,6 @@ public class ViewAppointmentsScreen implements Initializable {
     public Button customersButton;
     public Button reportsButton;
     public Button logoutButton;
-    public AnchorPane contentPane;
     public Button addAppointmentButton;
     public Button modifyAppointmentButton;
     public Button deleteAppointmentButton;
@@ -31,9 +26,30 @@ public class ViewAppointmentsScreen implements Initializable {
     public RadioButton viewMonthRadioButton;
     public RadioButton viewAllRadioButton;
     public ToggleGroup tGroup;
+    public TableView appointmentsTable;
+    public TableColumn idCol;
+    public TableColumn customerCol;
+    public TableColumn titleCol;
+    public TableColumn descriptionCol;
+    public TableColumn typeCol;
+    public TableColumn locationCol;
+    public TableColumn dateCol;
+    public TableColumn startCol;
+    public TableColumn endCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        appointmentsTable.setItems(AppointmentsDao.getAllAppointments());
+
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerCol.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
     }
 
     public void onAppointmentsButton(ActionEvent actionEvent) {
@@ -61,19 +77,40 @@ public class ViewAppointmentsScreen implements Initializable {
     }
 
     public void onModifyAppointmentButton(ActionEvent actionEvent) throws IOException {
-        Stage stage = (Stage) modifyAppointmentButton.getScene().getWindow();
-        GlobalController.modifyAppointmentScreen(stage);
+        Appointment selectedAppt = (Appointment) appointmentsTable.getSelectionModel().getSelectedItem();
+        if (selectedAppt == null)
+            // TODO: Error alert
+            System.out.println("No appointment selected.");
+        else
+            ModifyAppointmentScreen.setAppointmentToMod(selectedAppt);
+            Stage stage = (Stage) modifyAppointmentButton.getScene().getWindow();
+            GlobalController.modifyAppointmentScreen(stage);
     }
 
     public void onDeleteAppointmentButton(ActionEvent actionEvent) {
     }
 
     public void onViewWeekRadioButton(ActionEvent actionEvent) {
+        LocalDateTime now = LocalDateTime.now();
+        appointmentsTable.setItems(
+                AppointmentsDao.filterByDateRange(
+                        now.with(DayOfWeek.MONDAY),
+                        now.with(DayOfWeek.FRIDAY)
+                )
+        );
     }
 
-    public void OnViewMonthRadioButton(ActionEvent actionEvent) {
+    public void onViewMonthRadioButton(ActionEvent actionEvent) {
+        LocalDateTime now = LocalDateTime.now();
+        appointmentsTable.setItems(
+                AppointmentsDao.filterByDateRange(
+                        now.withDayOfMonth(1),
+                        now.withDayOfMonth(now.getMonth().maxLength())
+                )
+        );
     }
 
     public void onViewAllRadioButton(ActionEvent actionEvent) {
+        appointmentsTable.setItems(AppointmentsDao.getAllAppointments());
     }
 }

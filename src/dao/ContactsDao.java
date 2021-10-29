@@ -3,13 +3,13 @@ package dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Contact;
-import model.Contact;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ContactsDao {
+    public static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
 
     private static Contact createContactObj(ResultSet rs) throws SQLException {
         int id = rs.getInt("Contact_ID");
@@ -20,20 +20,20 @@ public class ContactsDao {
     }
 
     public static ObservableList<Contact> getAllContacts() {
-        ObservableList<Contact> allContacts = FXCollections.observableArrayList();
+        if (allContacts.size() == 0) {
+            try {
+                String sql = "SELECT * FROM Contacts";
 
-        try {
-            String sql = "SELECT * FROM Contacts";
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
 
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                allContacts.add(createContactObj(rs));
+                while (rs.next()) {
+                    allContacts.add(createContactObj(rs));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return allContacts;

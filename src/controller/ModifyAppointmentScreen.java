@@ -1,10 +1,12 @@
 package controller;
 
+import dao.AppointmentsDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,9 +34,27 @@ public class ModifyAppointmentScreen implements Initializable {
     public TextField appointmentLastUpdateTextField;
     public TextField appointmentUpdatedByTextField;
 
+    public static Appointment appointmentToMod;
+    public static int appointmentToModIndex;
+
+    /**
+     * Static method to pass data from the view screen to the modify screen.
+     * @param appt The Appointment to modify.
+     */
+    public static void setAppointmentToMod(Appointment appt){
+        appointmentToMod = appt;
+        appointmentToModIndex = AppointmentsDao.getAllAppointments().indexOf(appt);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Appointment appt = appointmentToMod;
+        appointmentIdTextField.setText(String.valueOf(appt.getId()));
+        appointmentCustomerTextField.setText(appt.getCustomer().getName());
+        //app.setText(String.valueOf(appt.getStock()));
+        //priceTextField.setText(String.valueOf(appt.getPrice()));
+        //maxTextField.setText(String.valueOf(appt.getMax()));
+        //minTextField.setText(String.valueOf(modPart.getMin()));
     }
 
     public void onAppointmentsButton(ActionEvent actionEvent) throws IOException {

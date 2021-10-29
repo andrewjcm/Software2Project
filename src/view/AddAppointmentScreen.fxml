@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddAppointmentScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddAppointmentScreen">
     <AnchorPane layoutY="-2.0" maxHeight="600.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
         <effect>
             <DropShadow />
@@ -51,23 +51,23 @@
                     <TextField fx:id="appointmentEndTextField" layoutX="484.0" layoutY="132.0" />
                     <TextField fx:id="appointmentContactNameTextField" layoutX="484.0" layoutY="176.0" />
                     <TextField fx:id="appointmentContactEmailTextField" layoutX="484.0" layoutY="221.0" />
-                    <Label layoutX="113.0" layoutY="54.0" text="%ID" />
-                    <Label layoutX="104.0" layoutY="94.0" text="%Customer" />
-                    <Label layoutX="98.0" layoutY="136.0" text="%Description" />
-                    <Label layoutX="104.0" layoutY="180.0" text="%Location" />
-                    <Label layoutX="103.0" layoutY="225.0" text="%Type" />
-                    <Label layoutX="387.0" layoutY="54.0" text="%Date" />
-                    <Label layoutX="389.0" layoutY="94.0" text="%Start" />
-                    <Label layoutX="387.0" layoutY="136.0" text="%End" />
-                    <Label layoutX="387.0" layoutY="180.0" text="%Contact_Name" />
-                    <Label layoutX="397.0" layoutY="225.0" text="%Email" />
+                    <Label layoutX="95.0" layoutY="54.0" text="%ID" />
+                    <Label layoutX="95.0" layoutY="94.0" text="%Customer" />
+                    <Label layoutX="95.0" layoutY="136.0" text="%Description" />
+                    <Label layoutX="95.0" layoutY="180.0" text="%Location" />
+                    <Label layoutX="95.0" layoutY="225.0" text="%Type" />
+                    <Label layoutX="380.0" layoutY="54.0" text="%Date" />
+                    <Label layoutX="380.0" layoutY="94.0" text="%Start" />
+                    <Label layoutX="380.0" layoutY="136.0" text="%End" />
+                    <Label layoutX="380.0" layoutY="180.0" text="%Contact_Name" />
+                    <Label layoutX="380.0" layoutY="225.0" text="%Email" />
                <TextField fx:id="appointmentCreateDateTextField" disable="true" layoutX="187.0" layoutY="302.0" />
                <TextField fx:id="appointmentCreatedByTextField" disable="true" layoutX="187.0" layoutY="345.0" />
                <TextField fx:id="appointmentLastUpdateTextField" disable="true" layoutX="484.0" layoutY="302.0" />
                <TextField fx:id="appointmentUpdatedByTextField" disable="true" layoutX="484.0" layoutY="345.0" />
-               <Label layoutX="99.0" layoutY="306.0" text="%Create_Date" />
-               <Label layoutX="98.0" layoutY="349.0" text="%Created_By" />
-               <Label layoutX="379.0" layoutY="306.0" text="%Last_Update" />
+               <Label layoutX="95.0" layoutY="306.0" text="%Create_Date" />
+               <Label layoutX="95.0" layoutY="349.0" text="%Created_By" />
+               <Label layoutX="380.0" layoutY="306.0" text="%Last_Update" />
                <Label layoutX="380.0" layoutY="349.0" text="%Updated_By" />
                 </children>
             </AnchorPane>

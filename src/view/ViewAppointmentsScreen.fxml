@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewAppointmentsScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewAppointmentsScreen">
       <AnchorPane layoutY="-2.0" maxHeight="600.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
          <effect>
             <DropShadow />
@@ -31,11 +31,11 @@
       <children>
          <AnchorPane prefHeight="150.0" prefWidth="730.0">
             <children>
-               <RadioButton fx:id="viewWeekRadioButton" layoutX="239.0" layoutY="118.0" mnemonicParsing="false" onAction="#onViewWeekRadioButton" text="%Week_View">
+               <RadioButton fx:id="viewWeekRadioButton" layoutX="300.0" layoutY="118.0" mnemonicParsing="false" onAction="#onViewWeekRadioButton" text="%Week_View">
                   <toggleGroup>
                     <ToggleGroup fx:id="tGroup" />
                   </toggleGroup></RadioButton>
-               <RadioButton fx:id="viewMonthRadioButton" alignment="CENTER_RIGHT" layoutX="373.0" layoutY="118.0" mnemonicParsing="false" onAction="#OnViewMonthRadioButton" text="%Month_View" toggleGroup="$tGroup">
+               <RadioButton fx:id="viewMonthRadioButton" alignment="CENTER_RIGHT" layoutX="480.0" layoutY="118.0" mnemonicParsing="false" onAction="#onViewMonthRadioButton" text="%Month_View" toggleGroup="$tGroup">
                   <padding>
                      <Insets left="10.0" />
                   </padding>
@@ -45,21 +45,20 @@
                      <Font name="System Bold" size="24.0" />
                   </font>
                </Label>
-               <DatePicker layoutX="527.0" layoutY="114.0" />
-               <RadioButton fx:id="viewAllRadioButton" layoutX="140.0" layoutY="118.0" mnemonicParsing="false" onAction="#onViewAllRadioButton" selected="true" text="%View_All" toggleGroup="$tGroup" />
+               <RadioButton fx:id="viewAllRadioButton" layoutX="120.0" layoutY="118.0" mnemonicParsing="false" onAction="#onViewAllRadioButton" selected="true" text="%View_All" toggleGroup="$tGroup" />
             </children>
          </AnchorPane>
-         <TableView prefHeight="450.0" prefWidth="730.0">
+         <TableView fx:id="appointmentsTable" prefHeight="450.0" prefWidth="730.0">
            <columns>
-             <TableColumn prefWidth="58.199981689453125" text="ID" />
-             <TableColumn prefWidth="92.20001220703125" text="Customer" />
-               <TableColumn prefWidth="75.0" text="Title" />
-               <TableColumn prefWidth="75.0" text="Description" />
-               <TableColumn prefWidth="75.0" text="Type" />
-               <TableColumn prefWidth="75.0" text="Location" />
-               <TableColumn prefWidth="91.20001220703125" text="Date" />
-               <TableColumn prefWidth="95.5999755859375" text="Start Time" />
-               <TableColumn prefWidth="90.79998779296875" text="End Time" />
+             <TableColumn fx:id="idCol" prefWidth="38.0" text="ID" />
+             <TableColumn fx:id="customerCol" prefWidth="104.0" text="Customer" />
+               <TableColumn fx:id="titleCol" prefWidth="85.0" text="Title" />
+               <TableColumn fx:id="descriptionCol" prefWidth="82.0" text="Description" />
+               <TableColumn fx:id="typeCol" prefWidth="68.0" text="Type" />
+               <TableColumn fx:id="locationCol" prefWidth="91.0" text="Location" />
+               <TableColumn fx:id="dateCol" prefWidth="76.0" text="Date" />
+               <TableColumn fx:id="startCol" prefWidth="95.5999755859375" text="Start Time" />
+               <TableColumn fx:id="endCol" prefWidth="90.79998779296875" text="End Time" />
            </columns>
          </TableView>
       </children>

@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Customer {
     private int id;
@@ -8,14 +8,14 @@ public class Customer {
     private String address;
     private String postalCode;
     private String phone;
-    private Timestamp createDate;
+    private LocalDateTime createDate;
     private String createdBy;
-    private Timestamp lastUpdate;
+    private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private Division division;
 
-    public Customer(int id, String name, String address, String postalCode, String phone, Timestamp createDate,
-                    String createdBy, Timestamp lastUpdate, String lastUpdatedBy, Division division) {
+    public Customer(int id, String name, String address, String postalCode, String phone, LocalDateTime createDate,
+                    String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy, Division division) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -68,11 +68,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Timestamp getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -84,11 +84,11 @@ public class Customer {
         this.createdBy = createdBy;
     }
 
-    public Timestamp getLastUpdate() {
+    public LocalDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    public void setLastUpdate(LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

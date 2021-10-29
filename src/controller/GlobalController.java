@@ -11,8 +11,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class GlobalController {
-    private static final Locale locale = Locale.CANADA_FRENCH;
-    //private static final Locale locale = Locale.getDefault();
+    //private static final Locale locale = Locale.CANADA_FRENCH;
+    private static final Locale locale = Locale.getDefault();
     private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("utils.Lang", locale);
 
     public static void viewAppointmentScreen(Stage stage) throws IOException {

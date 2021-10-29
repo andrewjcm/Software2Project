@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Appointment {
     private int id;
@@ -8,18 +8,18 @@ public class Appointment {
     private String description;
     private String location;
     private String type;
-    private Timestamp start;
-    private Timestamp end;
-    private Timestamp createDate;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private LocalDateTime createDate;
     private String createdBy;
-    private Timestamp lastUpdate;
+    private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private Customer customer;
     private User user;
     private Contact contact;
 
-    public Appointment(int id, String title, String description, String location, String type, Timestamp start,
-                       Timestamp end, Timestamp createDate, String createdBy, Timestamp lastUpdate,
+    public Appointment(int id, String title, String description, String location, String type, LocalDateTime start,
+                       LocalDateTime end, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate,
                        String updatedBy, Customer customer, User user, Contact contact) {
         this.id = id;
         this.title = title;
@@ -77,27 +77,27 @@ public class Appointment {
         this.type = type;
     }
 
-    public Timestamp getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(Timestamp start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public Timestamp getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Timestamp end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
-    public Timestamp getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -109,11 +109,11 @@ public class Appointment {
         this.createdBy = createdBy;
     }
 
-    public Timestamp getLastUpdate() {
+    public LocalDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    public void setLastUpdate(LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -149,7 +149,17 @@ public class Appointment {
         this.contact = contact;
     }
 
+    public String getDate() { return this.start.toLocalDate().toString(); }
+
+    public String getStartTime() { return this.start.toLocalTime().toString(); }
+
+    public String getEndTime() { return this.end.toLocalTime().toString(); }
+
     public String toString(){
         return "ID: " + id + " " + customer + " " + start;
+    }
+
+    public boolean equals(Appointment appointment){
+        return this.id == appointment.id;
     }
 }
