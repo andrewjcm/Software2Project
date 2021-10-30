@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
 import model.Division;
-import utils.Time.TZConverter;
+import utils.time.ZoneLocalize;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,8 +29,8 @@ public class DivisionsDao {
                 c -> c.getId() == country_id
         ).findFirst().orElse(null);
         return new Division(
-                id, name, TZConverter.fromDb(createDate), createdBy,
-                TZConverter.fromDb(updateDate), updatedBy, country
+                id, name, ZoneLocalize.toSysDefault(createDate), createdBy,
+                ZoneLocalize.toSysDefault(updateDate), updatedBy, country
         );
     }
 

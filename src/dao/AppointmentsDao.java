@@ -6,7 +6,7 @@ import model.Appointment;
 import model.Contact;
 import model.Customer;
 import model.User;
-import utils.Time.TZConverter;
+import utils.time.ZoneLocalize;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +25,7 @@ public class AppointmentsDao {
             apptId = allAppointments.get(lastApptIndex).getId();
         }
 
-        return apptId++;
+        return ++apptId;
     }
 
     public static ObservableList<Appointment> filterByDateRange(LocalDateTime start, LocalDateTime end){
@@ -68,8 +68,8 @@ public class AppointmentsDao {
         ).findFirst().orElse(null);
 
         return new Appointment(
-                id, title, desc, loc, type, TZConverter.fromDb(start), TZConverter.fromDb(end),
-                TZConverter.fromDb(createDate), createdBy, TZConverter.fromDb(updateDate), updatedBy,
+                id, title, desc, loc, type, ZoneLocalize.toSysDefault(start), ZoneLocalize.toSysDefault(end),
+                ZoneLocalize.toSysDefault(createDate), createdBy, ZoneLocalize.toSysDefault(updateDate), updatedBy,
                 customer, user, contact);
     }
 
@@ -95,33 +95,38 @@ public class AppointmentsDao {
 
     public static void addAppointment(Appointment appt) throws SQLException {
 
+        /** Not sure if this is needed, check back after Customer complete.
+        String sql1 = "ALTER TABLE Appointments MODIFY COLUMN Appointment_ID INT auto_increment";
+        PreparedStatement ps1 = DBConnection.getConnection().prepareStatement(sql1);
+        ps1.execute();
+        */
+
         String sql = "INSERT INTO Appointments (" +
-                "Appointment_ID, Title, Description," +
-                " Location, Type, Start, End, Create_Date," +
-                " Created_By, Last_Update, Last_Updated_By," +
-                " Customer_ID, User_ID, Contact_ID)" +
-                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "Title, Description, Location, Type, Start, End, Create_Date," +
+                " Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID)" +
+                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-        ps.setInt(1, appt.getId());
-        ps.setString(2, appt.getTitle());
-        ps.setString(3, appt.getDescription());
-        ps.setString(4, appt.getLocation());
-        ps.setString(5, appt.getType());
-        ps.setTimestamp(6, TZConverter.toDb(appt.getStart()));
-        ps.setTimestamp(7, TZConverter.toDb(appt.getEnd()));
-        ps.setTimestamp(8, TZConverter.toDb(appt.getCreateDate()));
-        ps.setString(9, appt.getCreatedBy());
-        ps.setTimestamp(10, TZConverter.toDb(appt.getLastUpdate()));
-        ps.setString(11, appt.getUpdatedBy());
-        ps.setInt(12, appt.getCustomer().getId());
-        ps.setInt(13, appt.getUser().getId());
-        ps.setInt(14, appt.getContact().getId());
+        ps.setString(1, appt.getTitle());
+        ps.setString(2, appt.getDescription());
+        ps.setString(3, appt.getLocation());
+        ps.setString(4, appt.getType());
+        ps.setTimestamp(5, ZoneLocalize.toDb(appt.getStart()));
+        ps.setTimestamp(6, ZoneLocalize.toDb(appt.getEnd()));
+        ps.setTimestamp(7, ZoneLocalize.toDb(appt.getCreateDate()));
+        ps.setString(8, appt.getCreatedBy());
+        ps.setTimestamp(9, ZoneLocalize.toDb(appt.getLastUpdate()));
+        ps.setString(10, appt.getUpdatedBy());
+        ps.setInt(11, appt.getCustomer().getId());
+        ps.setInt(12, appt.getUser().getId());
+        ps.setInt(13, appt.getContact().getId());
 
         ps.execute();
 
         // add to ram list
+        apptId = getLastAddedAppt().getId();
+        appt.setId(apptId);
         allAppointments.add(appt);
     }
 
@@ -137,5 +142,50 @@ public class AppointmentsDao {
 
         if (allAppointments.size() > 0)
             allAppointments.remove(appt);
+    }
+
+    public static void updateAppointment(int apptIndex, Appointment origAppt, Appointment newAppt) throws SQLException {
+        String sql = "UPDATE Appointments SET" +
+                " Title = ?," +
+                " Description = ?," +
+                " Location = ?," +
+                " Type = ?," +
+                " Start = ?," +
+                " End = ?," +
+                " Last_Update = ?," +
+                " Last_Updated_By = ?," +
+                " Customer_ID = ?," +
+                " User_ID = ?," +
+                " Contact_ID = ?" +
+                " WHERE Appointment_ID = ?";
+
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+        ps.setString(1, newAppt.getTitle());
+        ps.setString(2, newAppt.getDescription());
+        ps.setString(3, newAppt.getLocation());
+        ps.setString(4, newAppt.getType());
+        ps.setTimestamp(5, ZoneLocalize.toDb(newAppt.getStart()));
+        ps.setTimestamp(6, ZoneLocalize.toDb(newAppt.getEnd()));
+        ps.setTimestamp(7, ZoneLocalize.toDb(newAppt.getLastUpdate()));
+        ps.setString(8, newAppt.getUpdatedBy());
+        ps.setInt(9, newAppt.getCustomer().getId());
+        ps.setInt(10, newAppt.getUser().getId());
+        ps.setInt(11, newAppt.getContact().getId());
+        ps.setInt(12, origAppt.getId());
+
+        ps.executeUpdate();
+
+        allAppointments.set(apptIndex, newAppt);
+    }
+
+    public static Appointment getLastAddedAppt() throws SQLException {
+        String sql = "SELECT * FROM Appointments ORDER BY Appointment_ID DESC LIMIT 1";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next())
+            return createAppointmentObj(rs);
+        else
+            return null;
     }
 }

@@ -10,6 +10,7 @@ import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -50,6 +51,8 @@ public class ViewAppointmentsScreen implements Initializable {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+
+        viewAllRadioButton.setSelected(true);
     }
 
     public void onAppointmentsButton(ActionEvent actionEvent) {
@@ -87,7 +90,20 @@ public class ViewAppointmentsScreen implements Initializable {
             GlobalController.modifyAppointmentScreen(stage);
     }
 
-    public void onDeleteAppointmentButton(ActionEvent actionEvent) {
+    public void onDeleteAppointmentButton(ActionEvent actionEvent) throws SQLException {
+        Appointment selectedAppt = (Appointment) appointmentsTable.getSelectionModel().getSelectedItem();
+        if (selectedAppt == null)
+            // TODO: Error alert
+            System.out.println("No appointment selected.");
+        else {
+            AppointmentsDao.deleteAppointment(selectedAppt);
+            if (viewMonthRadioButton.isSelected())
+                onViewMonthRadioButton(actionEvent);
+            else if (viewWeekRadioButton.isSelected())
+                onViewMonthRadioButton(actionEvent);
+            else
+                onViewAllRadioButton(actionEvent);
+        }
     }
 
     public void onViewWeekRadioButton(ActionEvent actionEvent) {

@@ -3,7 +3,7 @@ package dao;
 import model.Country;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import utils.Time.TZConverter;
+import utils.time.ZoneLocalize;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ public class CountriesDao {
         Timestamp updateDate = resultSet.getTimestamp("Last_Update");
         String updatedBy = resultSet.getString("Last_Updated_By");
 
-        return new Country(id, name, TZConverter.fromDb(createDate), createdBy, TZConverter.fromDb(updateDate), updatedBy);
+        return new Country(id, name, ZoneLocalize.toSysDefault(createDate), createdBy, ZoneLocalize.toSysDefault(updateDate), updatedBy);
     }
 
     public static ObservableList<Country> getAllCountries () {

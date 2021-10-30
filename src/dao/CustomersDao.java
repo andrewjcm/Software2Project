@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
 import model.Division;
-import utils.Time.TZConverter;
+import utils.time.ZoneLocalize;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,8 +33,8 @@ public class CustomersDao {
             ).findFirst().orElse(null);
 
             return new Customer(
-                    id, name, address, zip, phone, TZConverter.fromDb(createDate), createdBy,
-                    TZConverter.fromDb(updateDate), updatedBy, division
+                    id, name, address, zip, phone, ZoneLocalize.toSysDefault(createDate), createdBy,
+                    ZoneLocalize.toSysDefault(updateDate), updatedBy, division
             );
     }
 
@@ -81,9 +81,9 @@ public class CustomersDao {
         ps.setString(3, customer.getAddress());
         ps.setString(4, customer.getPostalCode());
         ps.setString(5, customer.getPhone());
-        ps.setTimestamp(6, TZConverter.toDb(customer.getCreateDate()));
+        ps.setTimestamp(6, ZoneLocalize.toDb(customer.getCreateDate()));
         ps.setString(7, customer.getCreatedBy());
-        ps.setTimestamp(8, TZConverter.toDb(customer.getLastUpdate()));
+        ps.setTimestamp(8, ZoneLocalize.toDb(customer.getLastUpdate()));
         ps.setString(9, customer.getLastUpdatedBy());
         ps.setInt(10, customer.getDivision().getId());
 

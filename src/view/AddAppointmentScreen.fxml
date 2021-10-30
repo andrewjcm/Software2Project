@@ -42,25 +42,20 @@
                         <font>
                             <Font name="System Italic" size="12.0" />
                         </font></TextField>
-                    <TextField fx:id="appointmentCustomerTextField" layoutX="187.0" layoutY="90.0" />
                     <TextField fx:id="appointmentDescriptionTextField" layoutX="187.0" layoutY="132.0" />
                     <TextField fx:id="appointmentLocationTextField" layoutX="187.0" layoutY="176.0" />
                     <TextField fx:id="appointmentTypeTextField" layoutX="187.0" layoutY="221.0" />
-                    <TextField fx:id="appointmentDateTextField" layoutX="484.0" layoutY="50.0" />
-                    <TextField fx:id="appointmentStartByTextField" layoutX="484.0" layoutY="90.0" />
-                    <TextField fx:id="appointmentEndTextField" layoutX="484.0" layoutY="132.0" />
-                    <TextField fx:id="appointmentContactNameTextField" layoutX="484.0" layoutY="176.0" />
-                    <TextField fx:id="appointmentContactEmailTextField" layoutX="484.0" layoutY="221.0" />
+                    <TextField fx:id="appointmentTitleNameTextField" layoutX="187.0" layoutY="90.0" />
                     <Label layoutX="95.0" layoutY="54.0" text="%ID" />
-                    <Label layoutX="95.0" layoutY="94.0" text="%Customer" />
+                    <Label layoutX="95.0" layoutY="94.0" text="%Title" />
                     <Label layoutX="95.0" layoutY="136.0" text="%Description" />
                     <Label layoutX="95.0" layoutY="180.0" text="%Location" />
                     <Label layoutX="95.0" layoutY="225.0" text="%Type" />
                     <Label layoutX="380.0" layoutY="54.0" text="%Date" />
                     <Label layoutX="380.0" layoutY="94.0" text="%Start" />
                     <Label layoutX="380.0" layoutY="136.0" text="%End" />
-                    <Label layoutX="380.0" layoutY="180.0" text="%Contact_Name" />
-                    <Label layoutX="380.0" layoutY="225.0" text="%Email" />
+                    <Label layoutX="380.0" layoutY="180.0" text="%Customer" />
+                    <Label layoutX="380.0" layoutY="225.0" text="%Contact" />
                <TextField fx:id="appointmentCreateDateTextField" disable="true" layoutX="187.0" layoutY="302.0" />
                <TextField fx:id="appointmentCreatedByTextField" disable="true" layoutX="187.0" layoutY="345.0" />
                <TextField fx:id="appointmentLastUpdateTextField" disable="true" layoutX="484.0" layoutY="302.0" />
@@ -69,6 +64,11 @@
                <Label layoutX="95.0" layoutY="349.0" text="%Created_By" />
                <Label layoutX="380.0" layoutY="306.0" text="%Last_Update" />
                <Label layoutX="380.0" layoutY="349.0" text="%Updated_By" />
+               <ComboBox fx:id="startComboBox" layoutX="484.0" layoutY="90.0" prefWidth="150.0" />
+               <ComboBox fx:id="endComboBox" layoutX="484.0" layoutY="132.0" prefWidth="150.0" />
+               <ComboBox fx:id="customerComboBox" layoutX="484.0" layoutY="176.0" prefWidth="150.0" />
+               <DatePicker fx:id="datePicker" layoutX="484.0" layoutY="50.0" prefHeight="25.0" prefWidth="150.0" />
+               <ComboBox fx:id="contactComboBox" layoutX="484.0" layoutY="221.0" prefWidth="150.0" />
                 </children>
             </AnchorPane>
         </children>

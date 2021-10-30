@@ -3,7 +3,7 @@ package utils.auth;
 import dao.UsersDoa;
 import model.User;
 
-public class VerifyUser {
+public class UserAuth {
 
     private static User loggedInUser;
 

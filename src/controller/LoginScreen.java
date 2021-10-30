@@ -9,10 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import utils.auth.VerifyUser;
+import utils.auth.UserAuth;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -25,25 +26,25 @@ public class LoginScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        locationLabel.setText(resourceBundle.getString("Location") + ": " + Locale.getDefault().getDisplayCountry());
+        locationLabel.setText(resourceBundle.getString("Location") + ": " + ZoneId.systemDefault());
     }
 
     public void onLoginButton(ActionEvent actionEvent) throws IOException {
         // TODO: Add verify user security feature
-        if (VerifyUser.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
+        if (UserAuth.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
             Stage stage = (Stage) loginButton.getScene().getWindow();
             GlobalController.viewAppointmentScreen(stage);
         }
     }
 
     public void onUsernameKeyPressed(KeyEvent keyEvent) throws IOException {
-        if (VerifyUser.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
+        if (UserAuth.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
             enterLogin(keyEvent);
         }
     }
 
     public void onPasswordKeyPressed(KeyEvent keyEvent) throws IOException {
-        if (VerifyUser.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
+        if (UserAuth.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
             enterLogin(keyEvent);
         }
     }

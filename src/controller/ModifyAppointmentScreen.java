@@ -1,15 +1,28 @@
 package controller;
 
 import dao.AppointmentsDao;
+import dao.ContactsDao;
+import dao.CustomersDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Contact;
+import model.Customer;
+import model.Hours;
+import utils.auth.UserAuth;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentScreen implements Initializable {
@@ -20,19 +33,19 @@ public class ModifyAppointmentScreen implements Initializable {
     public Button saveAppointmentButton;
     public Button cancelAppointmentButton;
     public TextField appointmentIdTextField;
-    public TextField appointmentCustomerTextField;
     public TextField appointmentDescriptionTextField;
     public TextField appointmentLocationTextField;
     public TextField appointmentTypeTextField;
-    public TextField appointmentDateTextField;
-    public TextField appointmentStartByTextField;
-    public TextField appointmentEndTextField;
-    public TextField appointmentContactNameTextField;
-    public TextField appointmentContactEmailTextField;
     public TextField appointmentCreateDateTextField;
     public TextField appointmentCreatedByTextField;
     public TextField appointmentLastUpdateTextField;
     public TextField appointmentUpdatedByTextField;
+    public TextField appointmentTitleNameTextField;
+    public ComboBox<LocalTime> startComboBox;
+    public ComboBox<LocalTime> endComboBox;
+    public ComboBox<Customer> customerComboBox;
+    public DatePicker datePicker;
+    public ComboBox<Contact> contactComboBox;
 
     public static Appointment appointmentToMod;
     public static int appointmentToModIndex;
@@ -48,13 +61,27 @@ public class ModifyAppointmentScreen implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        startComboBox.setItems(Hours.getStartTimes());
+        endComboBox.setItems(Hours.getEndTimes());
+        customerComboBox.setItems(CustomersDao.getAllCustomers());
+        contactComboBox.setItems(ContactsDao.getAllContacts());
+
         Appointment appt = appointmentToMod;
         appointmentIdTextField.setText(String.valueOf(appt.getId()));
-        appointmentCustomerTextField.setText(appt.getCustomer().getName());
-        //app.setText(String.valueOf(appt.getStock()));
-        //priceTextField.setText(String.valueOf(appt.getPrice()));
-        //maxTextField.setText(String.valueOf(appt.getMax()));
-        //minTextField.setText(String.valueOf(modPart.getMin()));
+        appointmentTitleNameTextField.setText(appt.getTitle());
+        appointmentDescriptionTextField.setText(appt.getDescription());
+        appointmentLocationTextField.setText(appt.getLocation());
+        appointmentTypeTextField.setText(appt.getType());
+        datePicker.setValue(appt.getStart().toLocalDate());
+        startComboBox.setValue(appt.getStart().toLocalTime());
+        endComboBox.setValue(appt.getEnd().toLocalTime());
+        customerComboBox.setValue(appt.getCustomer());
+        contactComboBox.setValue(appt.getContact());
+        appointmentCreateDateTextField.setText(appt.getCreateDate().toString());
+        appointmentCreatedByTextField.setText(appt.getCreatedBy());
+        appointmentLastUpdateTextField.setText(LocalDateTime.now().toString());
+        appointmentUpdatedByTextField.setText(UserAuth.getLoggedInUser().toString());
     }
 
     public void onAppointmentsButton(ActionEvent actionEvent) throws IOException {
@@ -90,12 +117,35 @@ public class ModifyAppointmentScreen implements Initializable {
         GlobalController.loginScreen(stage);
     }
 
-    public void onSaveAppointmentButton(ActionEvent actionEvent) throws IOException {
+    public void onSaveAppointmentButton(ActionEvent actionEvent) throws IOException, SQLException {
+        Appointment modAppt = new Appointment(
+                AppointmentsDao.getIncrementedApptId(),
+                appointmentTitleNameTextField.getText(),
+                appointmentDescriptionTextField.getText(),
+                appointmentLocationTextField.getText(),
+                appointmentTypeTextField.getText(),
+                LocalDateTime.of(datePicker.getValue(),
+                        startComboBox.getSelectionModel().getSelectedItem()),
+                LocalDateTime.of(datePicker.getValue(),
+                        endComboBox.getSelectionModel().getSelectedItem()),
+                appointmentToMod.getCreateDate(),
+                appointmentToMod.getCreatedBy(),
+                LocalDateTime.now(),
+                UserAuth.getLoggedInUser().toString(),
+                customerComboBox.getSelectionModel().getSelectedItem(),
+                appointmentToMod.getUser(),
+                contactComboBox.getSelectionModel().getSelectedItem()
+        );
 
-        // TODO: Add save action
+        if (appointmentToMod.equals(modAppt)){
+            // TODO: Error nothing changed.
+        }
+        else {
 
-        Stage stage = (Stage) saveAppointmentButton.getScene().getWindow();
-        GlobalController.viewAppointmentScreen(stage);
+            AppointmentsDao.updateAppointment(appointmentToModIndex, appointmentToMod, modAppt);
+            Stage stage = (Stage) saveAppointmentButton.getScene().getWindow();
+            GlobalController.viewAppointmentScreen(stage);
+        }
     }
 
     public void cancelAppointmentButton(ActionEvent actionEvent) throws IOException {

@@ -3,7 +3,7 @@ package dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.User;
-import utils.Time.TZConverter;
+import utils.time.ZoneLocalize;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,8 +24,8 @@ public class UsersDoa {
 
 
         return new User(
-                id, username, password, TZConverter.fromDb(createDate),
-                createdBy, TZConverter.fromDb(updateDate), updatedBy
+                id, username, password, ZoneLocalize.toSysDefault(createDate),
+                createdBy, ZoneLocalize.toSysDefault(updateDate), updatedBy
         );
     }
 

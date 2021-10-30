@@ -1,11 +1,11 @@
-package utils.Time;
+package utils.time;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-public class TZConverter {
+public class ZoneLocalize {
 
     public static final ZoneId dbZoneId = ZoneId.of("UTC");
     public static ZoneId sysZoneId = ZoneId.systemDefault();
@@ -15,7 +15,7 @@ public class TZConverter {
      * @param timestamp
      * @return LocalDateTime
      */
-    public static LocalDateTime fromDb(Timestamp timestamp) {
+    public static LocalDateTime toSysDefault(Timestamp timestamp) {
         ZonedDateTime zonedTime = timestamp.toLocalDateTime().atZone(dbZoneId);
         ZonedDateTime sysTimeZone = zonedTime.withZoneSameInstant(sysZoneId);
         return sysTimeZone.toLocalDateTime();

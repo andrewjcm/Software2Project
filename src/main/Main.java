@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Country;
+import model.Hours;
 
 
 /**

@@ -160,6 +160,15 @@ public class Appointment {
     }
 
     public boolean equals(Appointment appointment){
-        return this.id == appointment.id;
+        return this.id == appointment.getId() &&
+            this.title.equals(appointment.getTitle()) &&
+            this.description.equals(appointment.getDescription()) &&
+            this.location.equals(appointment.getLocation()) &&
+                    this.type.equals(appointment.getType()) &&
+                    this.start.equals(appointment.getStart()) &&
+                    this.customer.getId() == appointment.getCustomer().getId() &&
+                    this.user.getId() == appointment.getUser().getId() &&
+                    this.contact.getId() == appointment.getContact().getId();
+
     }
 }
