@@ -7,8 +7,7 @@
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
-/src/Password/
-/src/Password/Password.java
+src/utils/auth/Password.java
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids

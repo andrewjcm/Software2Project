@@ -3,7 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import Password.Password;
+import utils.auth.Password;
 
 
 public class DBConnection {
