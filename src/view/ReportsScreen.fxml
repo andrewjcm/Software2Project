@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsScreen">
     <AnchorPane layoutY="-2.0" maxHeight="600.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
         <effect>
             <DropShadow />
@@ -20,11 +20,6 @@
         <effect>
             <DropShadow />
         </effect>
-        <children>
-            <Button fx:id="reportOneButton" layoutY="44.0" mnemonicParsing="false" onAction="#onReportOneButton" prefHeight="25.0" prefWidth="135.0" text="Report 1" />
-            <Button fx:id="reportTwoButton" layoutY="69.0" mnemonicParsing="false" onAction="#onReportTwoButton" prefHeight="25.0" prefWidth="135.0" text="Report 2" />
-         <Button fx:id="reportThreeButton" layoutY="94.0" mnemonicParsing="false" onAction="#onReportThreeButton" prefHeight="25.0" prefWidth="135.0" text="Report 3" />
-        </children>
     </AnchorPane>
     <VBox layoutX="135.0" prefHeight="600.0" prefWidth="730.0">
         <children>
@@ -35,13 +30,42 @@
                             <Font name="System Bold" size="24.0" />
                         </font>
                     </Label>
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="128.0" prefWidth="240.0" text="%By_Month" textAlignment="CENTER" />
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="245.0" layoutY="129.0" prefWidth="240.0" text="%By_Type" textAlignment="CENTER" />
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="485.0" layoutY="128.0" prefWidth="240.0" text="%By_Division" textAlignment="CENTER" />
                 </children>
             </AnchorPane>
             <AnchorPane prefHeight="450.0" prefWidth="200.0">
-                <TableView fx:id="reportsTable" prefHeight="450.0" prefWidth="730.0">
-                    <columns>
-                    </columns>
+                <TableView fx:id="monthTable" prefHeight="200.0" prefWidth="240.0">
+               <columns>
+                  <TableColumn fx:id="monthCol" prefWidth="120.0" text="%Month" />
+                  <TableColumn fx:id="monthCountCol" prefWidth="120.0" text="%Count" />
+               </columns>
                 </TableView>
+            <TableView fx:id="typeTable" layoutX="245.0" prefHeight="200.0" prefWidth="240.0">
+              <columns>
+                <TableColumn fx:id="typeCol" prefWidth="120.0" text="%Type" />
+                <TableColumn fx:id="typeCountCol" prefWidth="120.0" text="%Count" />
+              </columns>
+            </TableView>
+            <TableView fx:id="contactScheduleTable" layoutY="250.0" prefHeight="200.0" prefWidth="730.0">
+              <columns>
+                <TableColumn fx:id="nameCol" prefWidth="105.0" text="%Contact_Name" />
+                <TableColumn fx:id="apptIdCol" prefWidth="114.0" text="%Appointment_ID" />
+                  <TableColumn fx:id="titleCol" prefWidth="75.0" text="%Title" />
+                  <TableColumn fx:id="descCol" prefWidth="106.0" text="%Description" />
+                  <TableColumn fx:id="startCol" prefWidth="120.0" text="%Start" />
+                  <TableColumn fx:id="endCol" prefWidth="120.0" text="%End" />
+                  <TableColumn fx:id="custIdCol" prefWidth="89.0" text="%Customer_ID" />
+              </columns>
+            </TableView>
+            <TableView fx:id="divisionTable" layoutX="490.0" prefHeight="200.0" prefWidth="240.0">
+              <columns>
+                <TableColumn fx:id="divCol" prefWidth="120.0" text="%Division" />
+                <TableColumn fx:id="divCountCol" prefWidth="120.0" text="%Count" />
+              </columns>
+            </TableView>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="225.0" prefWidth="730.0" text="%Contact_Schedule" textAlignment="CENTER" />
             </AnchorPane>
         </children>
     </VBox>

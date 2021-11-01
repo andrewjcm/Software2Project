@@ -12,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AppointmentsDao {
 
@@ -75,7 +77,7 @@ public class AppointmentsDao {
 
     public static ObservableList<Appointment> getAllAppointments() {
 
-        if (allAppointments.size() == 0) {
+        if (allAppointments.isEmpty()) {
             try {
                 String sql = "SELECT * FROM Appointments ORDER BY Appointment_ID";
                 PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -94,12 +96,6 @@ public class AppointmentsDao {
     }
 
     public static void addAppointment(Appointment appt) throws SQLException {
-
-        /** Not sure if this is needed, check back after Customer complete.
-        String sql1 = "ALTER TABLE Appointments MODIFY COLUMN Appointment_ID INT auto_increment";
-        PreparedStatement ps1 = DBConnection.getConnection().prepareStatement(sql1);
-        ps1.execute();
-        */
 
         String sql = "INSERT INTO Appointments (" +
                 "Title, Description, Location, Type, Start, End, Create_Date," +
@@ -187,5 +183,14 @@ public class AppointmentsDao {
             return createAppointmentObj(rs);
         else
             return null;
+    }
+
+    public static boolean openAppointmentTime(LocalDateTime start, LocalDateTime end) {
+        for (Appointment appt: allAppointments){
+            if (appt.getStart().equals(start) ||
+                    (appt.getStart().isAfter(start) && appt.getStart().isBefore(end)))
+                return false;
+        }
+        return true;
     }
 }

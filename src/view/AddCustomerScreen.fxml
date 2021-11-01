@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerScreen">
     <AnchorPane layoutY="-2.0" maxHeight="600.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
         <effect>
             <DropShadow />
@@ -36,33 +36,35 @@
                     </Label>
                 </children>
             </AnchorPane>
-         <AnchorPane prefHeight="450.0" prefWidth="200.0">
-            <children>
-               <TextField fx:id="customerIdTextField" disable="true" editable="false" layoutX="187.0" layoutY="50.0" text="%Disable_Auto_ID">
-                  <font>
-                     <Font name="System Italic" size="12.0" />
-                  </font></TextField>
-               <TextField fx:id="customerNameTextField" layoutX="187.0" layoutY="90.0" />
-               <TextField fx:id="customerAddressTextField" layoutX="187.0" layoutY="132.0" />
-               <TextField fx:id="customerZipTextField" layoutX="187.0" layoutY="176.0" />
-               <TextField fx:id="customerPhoneTextField" layoutX="187.0" layoutY="221.0" />
-               <TextField fx:id="customerCreateDateTextField" disable="true" layoutX="484.0" layoutY="50.0" />
-               <TextField fx:id="customerCreatedByTextField" disable="true" layoutX="484.0" layoutY="90.0" />
-               <TextField fx:id="customerLastUpdateTextField" disable="true" layoutX="484.0" layoutY="132.0" />
-               <TextField fx:id="customerUpdatedByTextField" disable="true" layoutX="484.0" layoutY="176.0" />
-               <TextField fx:id="customerDivisionTextField" disable="true" layoutX="484.0" layoutY="221.0" />
-               <Label layoutX="113.0" layoutY="54.0" text="%ID" />
-               <Label layoutX="104.0" layoutY="94.0" text="%Name" />
-               <Label layoutX="98.0" layoutY="136.0" text="%Address" />
-               <Label layoutX="104.0" layoutY="180.0" text="%Postal" />
-               <Label layoutX="103.0" layoutY="225.0" text="%Phone" />
-               <Label layoutX="387.0" layoutY="54.0" text="%Create_Date" />
-               <Label layoutX="389.0" layoutY="94.0" text="%Created_By" />
-               <Label layoutX="387.0" layoutY="136.0" text="%Last_Update" />
-               <Label layoutX="387.0" layoutY="180.0" text="%Updated_By" />
-               <Label layoutX="398.0" layoutY="225.0" text="%Division" />
-            </children>
-         </AnchorPane>
+            <AnchorPane prefHeight="450.0" prefWidth="200.0">
+                <children>
+                    <TextField fx:id="customerIdTextField" disable="true" editable="false" layoutX="187.0" layoutY="50.0" promptText="%Disable_Auto_ID">
+                        <font>
+                            <Font name="System Italic" size="12.0" />
+                        </font></TextField>
+                    <TextField fx:id="customerNameTextField" layoutX="187.0" layoutY="90.0" />
+                    <TextField fx:id="customerAddressTextField" layoutX="187.0" layoutY="132.0" />
+                    <TextField fx:id="customerZipTextField" layoutX="187.0" layoutY="176.0" />
+                    <TextField fx:id="customerPhoneTextField" layoutX="187.0" layoutY="221.0" />
+                    <TextField fx:id="customerCreateDateTextField" disable="true" layoutX="187.0" layoutY="315.0" />
+                    <TextField fx:id="customerCreatedByTextField" disable="true" layoutX="187.0" layoutY="365.0" />
+                    <TextField fx:id="customerLastUpdateTextField" disable="true" layoutX="484.0" layoutY="315.0" />
+                    <TextField fx:id="customerUpdatedByTextField" disable="true" layoutX="484.0" layoutY="365.0" />
+                    <Label layoutX="95.0" layoutY="54.0" text="%ID" />
+                    <Label layoutX="95.0" layoutY="94.0" text="%Name" />
+                    <Label layoutX="95.0" layoutY="136.0" text="%Address" />
+                    <Label layoutX="95.0" layoutY="180.0" text="%Postal" />
+                    <Label layoutX="95.0" layoutY="225.0" text="%Phone" />
+                    <Label layoutX="95.0" layoutY="319.0" text="%Create_Date" />
+                    <Label layoutX="95.0" layoutY="369.0" text="%Created_By" />
+                    <Label layoutX="375.0" layoutY="319.0" text="%Last_Update" />
+                    <Label layoutX="375.0" layoutY="369.0" text="%Updated_By" />
+                    <Label layoutX="385.0" layoutY="54.0" text="%Country" />
+                    <ComboBox fx:id="countryCombo" layoutX="484.0" layoutY="50.0" onAction="#onCountryComboAction" prefWidth="150.0" />
+                    <ComboBox fx:id="divisionCombo" layoutX="484.0" layoutY="90.0" prefWidth="150.0" />
+                    <Label layoutX="385.0" layoutY="94.0" text="%Division" />
+                </children>
+            </AnchorPane>
         </children>
     </VBox>
 </AnchorPane>

@@ -14,6 +14,19 @@ import java.sql.Timestamp;
 public class DivisionsDao {
 
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
+    private static ObservableList<Division> filteredDivisions = FXCollections.observableArrayList();
+
+    public static ObservableList<Division> getFilteredDivisions(Country country) {
+        if (!filteredDivisions.isEmpty())
+            filteredDivisions.clear();
+
+        for (Division div : allDivisions){
+            if (div.getCountry().equals(country))
+                filteredDivisions.add(div);
+        }
+
+        return filteredDivisions;
+    }
 
     private static Division createDivisionObj(ResultSet rs) throws SQLException {
         int id = rs.getInt("Division_ID");
@@ -35,7 +48,7 @@ public class DivisionsDao {
     }
 
     public static ObservableList<Division> getAllDivisions(){
-        if (allDivisions.size() == 0) {
+        if (allDivisions.isEmpty()) {
             try {
                 String sql = "SELECT * FROM first_level_divisions";
 

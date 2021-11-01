@@ -149,11 +149,9 @@ public class Appointment {
         this.contact = contact;
     }
 
-    public String getDate() { return this.start.toLocalDate().toString(); }
+    public int getCustomerId() { return this.customer.getId(); }
 
-    public String getStartTime() { return this.start.toLocalTime().toString(); }
-
-    public String getEndTime() { return this.end.toLocalTime().toString(); }
+    public int getUserId() { return this.user.getId(); }
 
     public String toString(){
         return "ID: " + id + " " + customer + " " + start;

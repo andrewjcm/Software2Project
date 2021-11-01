@@ -1,9 +1,12 @@
 package controller;
 
+import dao.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,13 +18,47 @@ public class ReportsScreen implements Initializable {
     public Button customersButton;
     public Button reportsButton;
     public Button logoutButton;
-    public Button reportOneButton;
-    public Button reportTwoButton;
-    public Button reportThreeButton;
-    public TableView reportsTable;
+    public TableView monthTable;
+    public TableColumn monthCol;
+    public TableColumn monthCountCol;
+    public TableView typeTable;
+    public TableColumn typeCol;
+    public TableColumn typeCountCol;
+    public TableView contactScheduleTable;
+    public TableColumn nameCol;
+    public TableColumn apptIdCol;
+    public TableColumn titleCol;
+    public TableColumn descCol;
+    public TableColumn startCol;
+    public TableColumn endCol;
+    public TableColumn custIdCol;
+    public TableView divisionTable;
+    public TableColumn divCol;
+    public TableColumn divCountCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        contactScheduleTable.setItems(Query.getAllContactSchedules());
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descCol.setCellValueFactory(new PropertyValueFactory<>("desc"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        custIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+
+        monthTable.setItems(Query.getAllMonthCounts());
+        monthCol.setCellValueFactory(new PropertyValueFactory<>("str"));
+        monthCountCol.setCellValueFactory(new PropertyValueFactory<>("count"));
+
+        typeTable.setItems(Query.getAllTypeCounts());
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("str"));
+        typeCountCol.setCellValueFactory(new PropertyValueFactory<>("count"));
+
+        divisionTable.setItems(Query.getAllDivisionCounts());
+        divCol.setCellValueFactory(new PropertyValueFactory<>("str"));
+        divCountCol.setCellValueFactory(new PropertyValueFactory<>("count"));
 
     }
 
@@ -36,21 +73,10 @@ public class ReportsScreen implements Initializable {
     }
 
     public void onReportsButton(ActionEvent actionEvent) throws IOException {
-        Stage stage = (Stage) reportsButton.getScene().getWindow();
-        GlobalController.reportsScreen(stage);
     }
 
     public void onLogoutButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         GlobalController.loginScreen(stage);
-    }
-
-    public void onReportOneButton(ActionEvent actionEvent) {
-    }
-
-    public void onReportTwoButton(ActionEvent actionEvent) {
-    }
-
-    public void onReportThreeButton(ActionEvent actionEvent) {
     }
 }

@@ -71,4 +71,6 @@ public class Country {
     public String toString(){
         return name;
     }
+
+    public boolean equals(Country other) { return this.id == other.getId(); }
 }

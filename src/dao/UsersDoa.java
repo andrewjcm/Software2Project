@@ -30,7 +30,7 @@ public class UsersDoa {
     }
 
     public static ObservableList<User> getAllUsers() {
-        if (allUsers.size() == 0) {
+        if (allUsers.isEmpty()) {
             try {
                 String sql = "SELECT * FROM Users";
 

@@ -111,4 +111,13 @@ public class Customer {
     public String toString(){
         return name;
     }
+
+    public boolean equals(Customer other) {
+        return this.id == other.getId() &&
+            this.name.equals(other.getName()) &&
+            this.address.equals(other.getAddress()) &&
+            this.postalCode.equals(other.getPostalCode()) &&
+            this.phone.equals(other.getPhone()) &&
+            this.division.equals(other.getDivision());
+    }
 }

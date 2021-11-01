@@ -1,9 +1,7 @@
 package utils.time;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 public class ZoneLocalize {
 
@@ -12,7 +10,7 @@ public class ZoneLocalize {
 
     /**
      * Converts database Timestamp from UTC to local system default as LocalDateTime object.
-     * @param timestamp
+     * @param timestamp Timestamp to be converted.
      * @return LocalDateTime
      */
     public static LocalDateTime toSysDefault(Timestamp timestamp) {
@@ -23,13 +21,19 @@ public class ZoneLocalize {
 
     /**
      * Converts system default LocalDateTime to Timestamp object in UTC.
-     * @param localDateTime
+     * @param localDateTime LocalDateTime obj to be converted.
      * @return Timestamp
      */
     public static Timestamp toDb(LocalDateTime localDateTime) {
         ZonedDateTime zonedTime = localDateTime.atZone(sysZoneId);
         ZonedDateTime dbTimeZone = zonedTime.withZoneSameInstant(dbZoneId);
         return Timestamp.valueOf(dbTimeZone.toLocalDateTime());
+    }
+
+    public static LocalDateTime hoursFromEST(LocalTime hour) {
+        ZonedDateTime zonedTime = LocalDateTime.of(LocalDate.now(), hour).atZone(ZoneId.of("America/New_York"));
+        ZonedDateTime sysTimeZone = zonedTime.withZoneSameInstant(sysZoneId);
+        return sysTimeZone.toLocalDateTime();
     }
 
 

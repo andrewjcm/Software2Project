@@ -5,36 +5,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewCustomerScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewCustomerScreen">
     <AnchorPane layoutX="865.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
         <effect>
-            <DropShadow/>
+            <DropShadow />
         </effect>
-        <Label alignment="CENTER" layoutY="144.0" prefWidth="135.0" text="%Appointments"/>
-        <Label alignment="CENTER" layoutY="14.0" prefWidth="135.0" text="%Customers"/>
-        <Button fx:id="addCustomerButton" layoutY="44.0" mnemonicParsing="false" onAction="#onAddCustomerButton"
-                prefHeight="25.0" prefWidth="135.0" text="%Add"/>
-        <Button fx:id="modifyCustomerButton" layoutY="69.0" mnemonicParsing="false" onAction="#onModifyCustomerButton"
-                prefHeight="25.0" prefWidth="135.0" text="%Modify"/>
-        <Button fx:id="addCustomerAppointmentButton" layoutY="170.0" mnemonicParsing="false"
-                onAction="#onAddCustomerAppointmentButton" prefHeight="25.0" prefWidth="135.0" text="%Add"/>
-        <Button fx:id="deleteCustomerButton" layoutY="94.0" mnemonicParsing="false" onAction="#onDeleteCustomerButton"
-                prefHeight="25.0" prefWidth="135.0" text="%Delete"/>
+        <Label alignment="CENTER" layoutY="144.0" prefWidth="135.0" text="%Appointments" />
+        <Label alignment="CENTER" layoutY="14.0" prefWidth="135.0" text="%Customers" />
+        <Button fx:id="addCustomerButton" layoutY="44.0" mnemonicParsing="false" onAction="#onAddCustomerButton" prefHeight="25.0" prefWidth="135.0" text="%Add" />
+        <Button fx:id="modifyCustomerButton" layoutY="69.0" mnemonicParsing="false" onAction="#onModifyCustomerButton" prefHeight="25.0" prefWidth="135.0" text="%Modify" />
+        <Button fx:id="addCustomerAppointmentButton" layoutY="170.0" mnemonicParsing="false" onAction="#onAddCustomerAppointmentButton" prefHeight="25.0" prefWidth="135.0" text="%Add" />
+        <Button fx:id="deleteCustomerButton" layoutY="94.0" mnemonicParsing="false" onAction="#onDeleteCustomerButton" prefHeight="25.0" prefWidth="135.0" text="%Delete" />
     </AnchorPane>
-    <AnchorPane maxHeight="600.0" maxWidth="135.0" minHeight="600.0" minWidth="135.0" prefHeight="600.0"
-                prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
+    <AnchorPane maxHeight="600.0" maxWidth="135.0" minHeight="600.0" minWidth="135.0" prefHeight="600.0" prefWidth="135.0" style="-fx-background-color: #F0F8FF;">
         <effect>
-            <DropShadow/>
+            <DropShadow />
         </effect>
-        <Button fx:id="appointmentsButton" layoutY="44.0" mnemonicParsing="false" onAction="#onAppointmentsButton"
-                prefHeight="25.0" prefWidth="135.0" text="%Appointments"/>
-        <Button fx:id="customersButton" layoutY="69.0" mnemonicParsing="false" onAction="#onCustomersButton"
-                prefHeight="25.0" prefWidth="135.0" text="%Customers"/>
-        <Button fx:id="reportsButton" layoutY="94.0" mnemonicParsing="false" onAction="#onReportsButton"
-                prefHeight="25.0" prefWidth="135.0" text="%Reports"/>
-        <Label layoutX="47.0" layoutY="14.0" text="%Menu"/>
-        <Button fx:id="logoutButton" layoutX="14.0" layoutY="552.0" mnemonicParsing="false" onAction="#onLogoutButton"
-                prefHeight="25.0" prefWidth="105.0" text="%Logout"/>
+        <Button fx:id="appointmentsButton" layoutY="44.0" mnemonicParsing="false" onAction="#onAppointmentsButton" prefHeight="25.0" prefWidth="135.0" text="%Appointments" />
+        <Button fx:id="customersButton" layoutY="69.0" mnemonicParsing="false" onAction="#onCustomersButton" prefHeight="25.0" prefWidth="135.0" text="%Customers" />
+        <Button fx:id="reportsButton" layoutY="94.0" mnemonicParsing="false" onAction="#onReportsButton" prefHeight="25.0" prefWidth="135.0" text="%Reports" />
+        <Label layoutX="47.0" layoutY="14.0" text="%Menu" />
+        <Button fx:id="logoutButton" layoutX="14.0" layoutY="552.0" mnemonicParsing="false" onAction="#onLogoutButton" prefHeight="25.0" prefWidth="105.0" text="%Logout" />
     </AnchorPane>
     <VBox alignment="CENTER" layoutX="135.0" maxHeight="600" maxWidth="730" minHeight="600" minWidth="730" prefHeight="600.0" prefWidth="730.0">
         <children>
@@ -45,16 +36,16 @@
                             <Font name="System Bold" size="24.0" />
                         </font>
                     </Label>
-               <TextField fx:id="customerSearchTextField" layoutX="560.0" layoutY="114.0" onKeyTyped="#onSearchCustomerKeyTyped" promptText="Search" />
                 </children>
             </AnchorPane>
             <TableView fx:id="customersTable" prefHeight="450.0" prefWidth="730.0">
                 <columns>
-                    <TableColumn fx:id="customersIdCol" prefWidth="38.399993896484375" text="ID" />
-                    <TableColumn fx:id="customersNameCol" prefWidth="188.39999389648438" text="Name" />
-                    <TableColumn fx:id="customersAddressCol" prefWidth="265.5999755859375" text="Address" />
-                    <TableColumn fx:id="customersZipCol" prefWidth="86.39996337890625" text="Postal Code" />
-                    <TableColumn fx:id="customersPhoneCol" prefWidth="149.39996337890625" text="Phone" />
+                    <TableColumn fx:id="customersIdCol" prefWidth="53.0" text="%ID" />
+                    <TableColumn fx:id="customersNameCol" prefWidth="156.0" text="%Name" />
+                    <TableColumn fx:id="customersAddressCol" prefWidth="152.0" text="%Address" />
+                    <TableColumn fx:id="customersZipCol" prefWidth="111.0" text="%Postal" />
+                    <TableColumn fx:id="customersPhoneCol" prefWidth="117.0" text="%Phone" />
+               <TableColumn fx:id="customersDivisionCol" prefWidth="140.0" text="%Division" />
                 </columns>
             </TableView>
         </children>

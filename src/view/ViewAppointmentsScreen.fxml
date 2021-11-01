@@ -50,15 +50,16 @@
          </AnchorPane>
          <TableView fx:id="appointmentsTable" prefHeight="450.0" prefWidth="730.0">
            <columns>
-             <TableColumn fx:id="idCol" prefWidth="38.0" text="ID" />
-             <TableColumn fx:id="customerCol" prefWidth="104.0" text="Customer" />
-               <TableColumn fx:id="titleCol" prefWidth="85.0" text="Title" />
-               <TableColumn fx:id="descriptionCol" prefWidth="82.0" text="Description" />
-               <TableColumn fx:id="typeCol" prefWidth="68.0" text="Type" />
-               <TableColumn fx:id="locationCol" prefWidth="91.0" text="Location" />
-               <TableColumn fx:id="dateCol" prefWidth="76.0" text="Date" />
-               <TableColumn fx:id="startCol" prefWidth="95.5999755859375" text="Start Time" />
-               <TableColumn fx:id="endCol" prefWidth="90.79998779296875" text="End Time" />
+             <TableColumn fx:id="idCol" prefWidth="26.0" text="%ID" />
+               <TableColumn fx:id="titleCol" prefWidth="53.0" text="%Title" />
+               <TableColumn fx:id="descriptionCol" prefWidth="70.0" text="%Description" />
+               <TableColumn fx:id="locationCol" prefWidth="66.0" text="%Location" />
+               <TableColumn fx:id="typeCol" prefWidth="81.0" text="%Type" />
+               <TableColumn fx:id="contactCol" prefWidth="88.0" text="%Contact" />
+               <TableColumn fx:id="startCol" prefWidth="110.0" text="%Start" />
+               <TableColumn fx:id="endCol" prefWidth="110.0" text="%End" />
+             <TableColumn fx:id="customerIdCol" prefWidth="76.0" text="%Customer_ID" />
+               <TableColumn fx:id="userIdCol" prefWidth="47.0" text="%User_ID" />
            </columns>
          </TableView>
       </children>

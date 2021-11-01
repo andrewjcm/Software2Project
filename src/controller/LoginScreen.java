@@ -30,31 +30,25 @@ public class LoginScreen implements Initializable {
     }
 
     public void onLoginButton(ActionEvent actionEvent) throws IOException {
-        // TODO: Add verify user security feature
+        Stage stage = (Stage) loginButton.getScene().getWindow();
         if (UserAuth.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
-            Stage stage = (Stage) loginButton.getScene().getWindow();
             GlobalController.viewAppointmentScreen(stage);
         }
     }
 
     public void onUsernameKeyPressed(KeyEvent keyEvent) throws IOException {
-        if (UserAuth.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
-            enterLogin(keyEvent);
-        }
+        enterLogin(keyEvent);
     }
 
     public void onPasswordKeyPressed(KeyEvent keyEvent) throws IOException {
-        if (UserAuth.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText())) {
-            enterLogin(keyEvent);
-        }
+        enterLogin(keyEvent);
     }
 
     public void enterLogin(KeyEvent keyEvent) throws IOException {
-        // TODO: Add error alert
         Stage stage = (Stage) loginButton.getScene().getWindow();
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            GlobalController.viewAppointmentScreen(stage);
-        }
+        if (keyEvent.getCode() == KeyCode.ENTER)
+            if (UserAuth.successfulLogin(usernameTextBox.getText(), passwordTextBox.getText()))
+                GlobalController.viewAppointmentScreen(stage);
     }
 
     public void onExitButton(ActionEvent actionEvent) {

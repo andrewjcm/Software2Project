@@ -5,24 +5,23 @@ import dao.ContactsDao;
 import dao.CustomersDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
 import model.Hours;
+import utils.alerts.Confirm;
+import utils.alerts.Schedule;
+import utils.alerts.Error;
 import utils.auth.UserAuth;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentScreen implements Initializable {
@@ -85,41 +84,115 @@ public class ModifyAppointmentScreen implements Initializable {
     }
 
     public void onAppointmentsButton(ActionEvent actionEvent) throws IOException {
-
-        // TODO: Add confirm alert
-
-
-        Stage stage = (Stage) appointmentsButton.getScene().getWindow();
-        GlobalController.viewAppointmentScreen(stage);
+        if (appointmentToMod.equals(newAppointment())){
+            Stage stage = (Stage) appointmentsButton.getScene().getWindow();
+            GlobalController.viewAppointmentScreen(stage);
+        }
+        else {
+            Optional<ButtonType> userResponse = Confirm.cancelMod();
+            if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
+                Stage stage = (Stage) appointmentsButton.getScene().getWindow();
+                GlobalController.viewAppointmentScreen(stage);
+            }
+        }
     }
 
     public void onCustomersButton(ActionEvent actionEvent) throws IOException {
-
-        // TODO: Add confirm alert
-
-        Stage stage = (Stage) customersButton.getScene().getWindow();
-        GlobalController.viewCustomerScreen(stage);
+        if (appointmentToMod.equals(newAppointment())) {
+            Stage stage = (Stage) customersButton.getScene().getWindow();
+            GlobalController.viewCustomerScreen(stage);
+        }
+        else {
+            Optional<ButtonType> userResponse = Confirm.cancelMod();
+            if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
+                Stage stage = (Stage) customersButton.getScene().getWindow();
+                GlobalController.viewCustomerScreen(stage);
+            }
+        }
     }
 
     public void onReportsButton(ActionEvent actionEvent) throws IOException {
-
-        // TODO: Add confirm alert
-
-        Stage stage = (Stage) reportsButton.getScene().getWindow();
-        GlobalController.reportsScreen(stage);
+        if (appointmentToMod.equals(newAppointment())) {
+            Stage stage = (Stage) reportsButton.getScene().getWindow();
+            GlobalController.reportsScreen(stage);
+        }
+        else {
+            Optional<ButtonType> userResponse = Confirm.cancelMod();
+            if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
+                Stage stage = (Stage) reportsButton.getScene().getWindow();
+                GlobalController.reportsScreen(stage);
+            }
+        }
     }
 
     public void onLogoutButton(ActionEvent actionEvent) throws IOException {
-
-        // TODO: Add confirm alert
-
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
-        GlobalController.loginScreen(stage);
+        if (appointmentToMod.equals(newAppointment())) {
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            GlobalController.loginScreen(stage);
+        }
+        else {
+            Optional<ButtonType> userResponse = Confirm.cancelMod();
+            if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
+                Stage stage = (Stage) logoutButton.getScene().getWindow();
+                GlobalController.loginScreen(stage);
+            }
+        }
     }
 
     public void onSaveAppointmentButton(ActionEvent actionEvent) throws IOException, SQLException {
-        Appointment modAppt = new Appointment(
-                AppointmentsDao.getIncrementedApptId(),
+        Appointment modAppt = newAppointment();
+
+        if (appointmentToMod.equals(modAppt)){
+            Error.noChangesMade();
+        }
+        else {
+            LocalDateTime apptStart = LocalDateTime.of(datePicker.getValue(),
+                    startComboBox.getSelectionModel().getSelectedItem());
+            LocalDateTime apptEnd = LocalDateTime.of(datePicker.getValue(),
+                    endComboBox.getSelectionModel().getSelectedItem());
+
+            // Validate that new appointment does not overlap an existing appointment.
+            if (!AppointmentsDao.openAppointmentTime(apptStart, apptEnd)){
+                Schedule.overlap();
+            }
+            // Validate that appointment is scheduled within biz hours.
+            else if (!Hours.getStartTimes().contains(apptStart.toLocalTime()) &&
+                    !Hours.getEndTimes().contains(apptEnd.toLocalTime())){
+                Schedule.outsideBizHours();
+            }
+            else {
+                AppointmentsDao.updateAppointment(appointmentToModIndex, appointmentToMod, modAppt);
+                Stage stage = (Stage) saveAppointmentButton.getScene().getWindow();
+                GlobalController.viewAppointmentScreen(stage);
+            }
+        }
+    }
+
+    public void cancelAppointmentButton(ActionEvent actionEvent) throws IOException {
+        if (appointmentToMod.equals(newAppointment())) {
+            Stage stage = (Stage) cancelAppointmentButton.getScene().getWindow();
+            GlobalController.viewAppointmentScreen(stage);
+        }
+        else {
+            Optional<ButtonType> userResponse = Confirm.cancelMod();
+            if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
+                Stage stage = (Stage) cancelAppointmentButton.getScene().getWindow();
+                GlobalController.viewAppointmentScreen(stage);
+            }
+        }
+    }
+
+    public void onStartCombo(ActionEvent actionEvent) {
+        LocalTime startTime = startComboBox.getSelectionModel().getSelectedItem();
+        if (startTime != null)
+            endComboBox.setItems(Hours.getEndTimes(startTime));
+        else
+            endComboBox.setItems(Hours.getEndTimes());
+    }
+
+    public Appointment newAppointment() {
+        return new Appointment(
+                appointmentToMod.getId(),
                 appointmentTitleNameTextField.getText(),
                 appointmentDescriptionTextField.getText(),
                 appointmentLocationTextField.getText(),
@@ -136,23 +209,5 @@ public class ModifyAppointmentScreen implements Initializable {
                 appointmentToMod.getUser(),
                 contactComboBox.getSelectionModel().getSelectedItem()
         );
-
-        if (appointmentToMod.equals(modAppt)){
-            // TODO: Error nothing changed.
-        }
-        else {
-
-            AppointmentsDao.updateAppointment(appointmentToModIndex, appointmentToMod, modAppt);
-            Stage stage = (Stage) saveAppointmentButton.getScene().getWindow();
-            GlobalController.viewAppointmentScreen(stage);
-        }
-    }
-
-    public void cancelAppointmentButton(ActionEvent actionEvent) throws IOException {
-
-        // TODO: Add confirm alert
-
-        Stage stage = (Stage) cancelAppointmentButton.getScene().getWindow();
-        GlobalController.viewAppointmentScreen(stage);
     }
 }

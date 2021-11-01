@@ -20,7 +20,7 @@ public class ContactsDao {
     }
 
     public static ObservableList<Contact> getAllContacts() {
-        if (allContacts.size() == 0) {
+        if (allContacts.isEmpty()) {
             try {
                 String sql = "SELECT * FROM Contacts";
 

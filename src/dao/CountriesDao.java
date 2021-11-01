@@ -26,7 +26,7 @@ public class CountriesDao {
     }
 
     public static ObservableList<Country> getAllCountries () {
-        if (allCountries.size() == 0) {
+        if (allCountries.isEmpty()) {
             try {
                 String sql = "SELECT * FROM Countries";
 

@@ -81,4 +81,6 @@ public class Division {
     public String toString(){
         return name;
     }
+
+    public boolean equals(Division other) { return this.id == other.getId(); }
 }
