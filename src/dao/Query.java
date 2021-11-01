@@ -11,6 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Data access object for generic, static queries.
+ * @author Andrew Cesar-Metzgus
+ */
 public class Query {
 
 
@@ -19,7 +23,12 @@ public class Query {
     private static ObservableList<Count> allTypeCounts = FXCollections.observableArrayList();
     private static ObservableList<Count> allDivisionCounts = FXCollections.observableArrayList();
 
-
+    /**
+     * Creates a ContactSchedule query object.
+     * @param rs Results Set
+     * @return ContactSchedule object.
+     * @throws SQLException
+     */
     private static ContactSchedule createContactScheduleObj(ResultSet rs) throws SQLException {
         String contactName = rs.getString("Contact_Name");
         int apptId = rs.getInt("Appointment_ID");
@@ -35,6 +44,12 @@ public class Query {
         );
     }
 
+    /**
+     * Creates a Count query object.
+     * @param rs Results Set
+     * @return Count object.
+     * @throws SQLException
+     */
     private static Count createCountObj(ResultSet rs) throws SQLException {
         String string = rs.getString("Str");
         int count = rs.getInt("Count");
@@ -42,6 +57,10 @@ public class Query {
         return new Count(string, count);
     }
 
+    /**
+     * Creates a list of all ContactSchedule query objects.
+     * @return ObservableList of ContactSchedule query objects.
+     */
     public static ObservableList<ContactSchedule> getAllContactSchedules() {
 
         if (allContactSchedules.isEmpty()) {
@@ -66,6 +85,10 @@ public class Query {
         return allContactSchedules;
     }
 
+    /**
+     * Creates a list of all Month Count query objects.
+     * @return ObservableList of Count query objects.
+     */
     public static ObservableList<Count> getAllMonthCounts() {
 
         if (allMonthCounts.isEmpty()) {
@@ -88,6 +111,10 @@ public class Query {
         return allMonthCounts;
     }
 
+    /**
+     * Creates a list of all Type Count query objects.
+     * @return ObservableList of all Count query objects.
+     */
     public static ObservableList<Count> getAllTypeCounts() {
 
         if (allTypeCounts.isEmpty()) {
@@ -110,7 +137,10 @@ public class Query {
         return allTypeCounts;
     }
 
-
+    /**
+     * Creates a list of all Division Count query objects.
+     * @return ObservableList of Count query objects.
+     */
     public static ObservableList<Count> getAllDivisionCounts() {
 
         if (allDivisionCounts.isEmpty()) {

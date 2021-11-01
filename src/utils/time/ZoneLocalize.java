@@ -3,6 +3,9 @@ package utils.time;
 import java.sql.Timestamp;
 import java.time.*;
 
+/**
+ * Timezone conversion object.
+ */
 public class ZoneLocalize {
 
     public static final ZoneId dbZoneId = ZoneId.of("UTC");
@@ -30,6 +33,11 @@ public class ZoneLocalize {
         return Timestamp.valueOf(dbTimeZone.toLocalDateTime());
     }
 
+    /**
+     * Converts from EST to system default timezon.
+     * @param hour LocalTime hour.
+     * @return LocalDateTime of adjusted hour.
+     */
     public static LocalDateTime hoursFromEST(LocalTime hour) {
         ZonedDateTime zonedTime = LocalDateTime.of(LocalDate.now(), hour).atZone(ZoneId.of("America/New_York"));
         ZonedDateTime sysTimeZone = zonedTime.withZoneSameInstant(sysZoneId);

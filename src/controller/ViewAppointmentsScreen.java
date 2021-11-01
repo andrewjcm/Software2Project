@@ -1,7 +1,6 @@
 package controller;
 
 import dao.AppointmentsDao;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -18,12 +17,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for view appointment screen.
+ * @author Andrew Cesar-Metzgus
+ */
 public class ViewAppointmentsScreen implements Initializable {
     public Button appointmentsButton;
     public Button customersButton;
@@ -50,8 +52,17 @@ public class ViewAppointmentsScreen implements Initializable {
 
     private static boolean initialLogin = true;
 
+    /**
+     * Static method to update initial login variable.
+     * @param bool boolean.
+     */
     public static void setInitialLogin(boolean bool) { initialLogin = bool; }
 
+    /**
+     * Initializes view appointment screen.
+     * @param url url
+     * @param resourceBundle Resource Bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointmentsTable.setItems(AppointmentsDao.getAllAppointments());
@@ -73,30 +84,60 @@ public class ViewAppointmentsScreen implements Initializable {
             upComingAppointment();
     }
 
+    /**
+     * Does nothing.
+     * @param actionEvent Button click.
+     */
     public void onAppointmentsButton(ActionEvent actionEvent) {
         // Pass already on this screen.
     }
 
+    /**
+     * Moves to view customers screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onCustomersButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) customersButton.getScene().getWindow();
         GlobalController.viewCustomerScreen(stage);
     }
 
+    /**
+     * Moves to reports screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onReportsButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) reportsButton.getScene().getWindow();
         GlobalController.reportsScreen(stage);
     }
 
+    /**
+     * Moves to login screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onLogoutButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         GlobalController.loginScreen(stage);
     }
 
+    /**
+     * Moves to add appointment screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onAddAppointmentButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) addAppointmentButton.getScene().getWindow();
         GlobalController.addAppointmentScreen(stage);
     }
 
+    /**
+     * Moves to modify appointment screen. Gets selected appointment. Alerts if no
+     * appointment selected.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onModifyAppointmentButton(ActionEvent actionEvent) throws IOException {
         Appointment selectedAppt = appointmentsTable.getSelectionModel().getSelectedItem();
         if (selectedAppt == null)
@@ -108,6 +149,12 @@ public class ViewAppointmentsScreen implements Initializable {
         }
     }
 
+    /**
+     * Deletes selected appointment from program memory and database. Alerts user if no appointment
+     * selected and to confirm deletion.
+     * @param actionEvent Button click.
+     * @throws SQLException
+     */
     public void onDeleteAppointmentButton(ActionEvent actionEvent) throws SQLException {
         Appointment selectedAppt = (Appointment) appointmentsTable.getSelectionModel().getSelectedItem();
         if (selectedAppt == null)
@@ -126,6 +173,10 @@ public class ViewAppointmentsScreen implements Initializable {
         }
     }
 
+    /**
+     * Filters the table view to current week appointments only.
+     * @param actionEvent Button click.
+     */
     public void onViewWeekRadioButton(ActionEvent actionEvent) {
         LocalDateTime now = LocalDateTime.now();
         appointmentsTable.setItems(
@@ -136,6 +187,10 @@ public class ViewAppointmentsScreen implements Initializable {
         );
     }
 
+    /**
+     * Filters the table view to current month appointments only.
+     * @param actionEvent Button click.
+     */
     public void onViewMonthRadioButton(ActionEvent actionEvent) {
         LocalDateTime now = LocalDateTime.now();
         appointmentsTable.setItems(
@@ -146,10 +201,17 @@ public class ViewAppointmentsScreen implements Initializable {
         );
     }
 
+    /**
+     * Sets table view to all appointments.
+     * @param actionEvent Button click.
+     */
     public void onViewAllRadioButton(ActionEvent actionEvent) {
         appointmentsTable.setItems(AppointmentsDao.getAllAppointments());
     }
 
+    /**
+     * Alerts user that if they have any appointments within the 15 minutes after successful login.
+     */
     public void upComingAppointment() {
         User user = UserAuth.getLoggedInUser();
         LocalDateTime now = LocalDateTime.now();

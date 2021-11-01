@@ -10,9 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * User data access object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class UsersDoa {
     public static ObservableList<User> allUsers = FXCollections.observableArrayList();
 
+    /**
+     * Creates a User object from a database results set.
+     * @param rs Results Set
+     * @return User object.
+     * @throws SQLException
+     */
     private static User createUserObj(ResultSet rs) throws SQLException {
         int id = rs.getInt("User_ID");
         String username = rs.getString("User_Name");
@@ -29,6 +39,10 @@ public class UsersDoa {
         );
     }
 
+    /**
+     * Gets all users from database if not already in program memory.
+     * @return ObservableList of users.
+     */
     public static ObservableList<User> getAllUsers() {
         if (allUsers.isEmpty()) {
             try {
@@ -47,15 +61,5 @@ public class UsersDoa {
         }
 
         return allUsers;
-    }
-
-    public static User getUser(int id) throws SQLException {
-        String sql = "SELECT * FROM Users WHERE User_ID=" + id;
-        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next())
-            return createUserObj(rs);
-        else
-            return null;
     }
 }

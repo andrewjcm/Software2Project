@@ -2,6 +2,10 @@ package model.query;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model for ContactSchedule query.
+ * @author Andrew Cesar-Metzgus
+ */
 public class ContactSchedule {
 
     private String contactName;

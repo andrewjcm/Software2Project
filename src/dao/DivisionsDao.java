@@ -11,11 +11,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Country data access object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class DivisionsDao {
 
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     private static ObservableList<Division> filteredDivisions = FXCollections.observableArrayList();
 
+    /**
+     * Filters divisions list based on related country.
+     * @param country Country object.
+     * @return ObservableList of Division objects.
+     */
     public static ObservableList<Division> getFilteredDivisions(Country country) {
         if (!filteredDivisions.isEmpty())
             filteredDivisions.clear();
@@ -28,6 +37,12 @@ public class DivisionsDao {
         return filteredDivisions;
     }
 
+    /**
+     * Creates a Division object from a database results set.
+     * @param rs Results Set
+     * @return Division object.
+     * @throws SQLException
+     */
     private static Division createDivisionObj(ResultSet rs) throws SQLException {
         int id = rs.getInt("Division_ID");
         String name = rs.getString("Division");
@@ -47,6 +62,10 @@ public class DivisionsDao {
         );
     }
 
+    /**
+     * Gets all divisions from database if not already in program memory.
+     * @return ObservableList of divisions.
+     */
     public static ObservableList<Division> getAllDivisions(){
         if (allDivisions.isEmpty()) {
             try {
@@ -65,16 +84,6 @@ public class DivisionsDao {
         }
 
         return allDivisions;
-    }
-
-    public static Division getDivision(int id) throws SQLException {
-        String sql = "SELECT * FROM first_level_divisions WHERE Division_ID=" + id;
-        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next())
-            return createDivisionObj(rs);
-        else
-            return null;
     }
 }
 

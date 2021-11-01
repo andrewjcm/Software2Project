@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
-import model.Hours;
+import utils.time.Hours;
 import utils.alerts.Confirm;
 import utils.alerts.Schedule;
 import utils.alerts.Error;
@@ -24,6 +24,10 @@ import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller object for modify appointment screen.
+ * @author Andrew Cesar-Metzgus
+ */
 public class ModifyAppointmentScreen implements Initializable {
     public Button appointmentsButton;
     public Button customersButton;
@@ -58,6 +62,11 @@ public class ModifyAppointmentScreen implements Initializable {
         appointmentToModIndex = AppointmentsDao.getAllAppointments().indexOf(appt);
     }
 
+    /**
+     * Initializes the modify appointment screen.
+     * @param url url
+     * @param resourceBundle Resource Bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -83,62 +92,94 @@ public class ModifyAppointmentScreen implements Initializable {
         appointmentUpdatedByTextField.setText(UserAuth.getLoggedInUser().toString());
     }
 
+    /**
+     * Button click that moves to the view appointment screen.
+     * Alerts if data has been modified confirming that the customer would like to discard
+     * the data.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onAppointmentsButton(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) appointmentsButton.getScene().getWindow();
         if (appointmentToMod.equals(newAppointment())){
-            Stage stage = (Stage) appointmentsButton.getScene().getWindow();
             GlobalController.viewAppointmentScreen(stage);
         }
         else {
             Optional<ButtonType> userResponse = Confirm.cancelMod();
             if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
-                Stage stage = (Stage) appointmentsButton.getScene().getWindow();
                 GlobalController.viewAppointmentScreen(stage);
             }
         }
     }
 
+    /**
+     * Button click that moves to the view customer screen.
+     * Alerts if data has been modified confirming that the customer would like to discard
+     * the data.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onCustomersButton(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) customersButton.getScene().getWindow();
         if (appointmentToMod.equals(newAppointment())) {
-            Stage stage = (Stage) customersButton.getScene().getWindow();
             GlobalController.viewCustomerScreen(stage);
         }
         else {
             Optional<ButtonType> userResponse = Confirm.cancelMod();
             if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
-                Stage stage = (Stage) customersButton.getScene().getWindow();
                 GlobalController.viewCustomerScreen(stage);
             }
         }
     }
 
+    /**
+     * Button click that moves to the reports screen.
+     * Alerts if data has been modified confirming that the customer would like to discard
+     * the data.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onReportsButton(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) reportsButton.getScene().getWindow();
         if (appointmentToMod.equals(newAppointment())) {
-            Stage stage = (Stage) reportsButton.getScene().getWindow();
             GlobalController.reportsScreen(stage);
         }
         else {
             Optional<ButtonType> userResponse = Confirm.cancelMod();
             if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
-                Stage stage = (Stage) reportsButton.getScene().getWindow();
                 GlobalController.reportsScreen(stage);
             }
         }
     }
 
+    /**
+     * Button click that moves to the login screen.
+     * Alerts if data has been modified confirming that the customer would like to discard
+     * the data.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onLogoutButton(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) logoutButton.getScene().getWindow();
         if (appointmentToMod.equals(newAppointment())) {
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
             GlobalController.loginScreen(stage);
         }
         else {
             Optional<ButtonType> userResponse = Confirm.cancelMod();
             if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
-                Stage stage = (Stage) logoutButton.getScene().getWindow();
                 GlobalController.loginScreen(stage);
             }
         }
     }
 
+    /**
+     * Updates the form data to new appointment in program memory and database.
+     * Logic checks: Appointment does not overlap another appointment and that
+     * the appointment time is within business hours. Catches invalid or incomplete
+     * form exception and alerts user.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onSaveAppointmentButton(ActionEvent actionEvent) throws IOException, SQLException {
         Appointment modAppt = newAppointment();
 
@@ -152,7 +193,7 @@ public class ModifyAppointmentScreen implements Initializable {
                     endComboBox.getSelectionModel().getSelectedItem());
 
             // Validate that new appointment does not overlap an existing appointment.
-            if (!AppointmentsDao.openAppointmentTime(apptStart, apptEnd)){
+            if (!AppointmentsDao.openAppointmentTime(appointmentToMod, apptStart, apptEnd)){
                 Schedule.overlap();
             }
             // Validate that appointment is scheduled within biz hours.
@@ -168,20 +209,32 @@ public class ModifyAppointmentScreen implements Initializable {
         }
     }
 
+    /**
+     * Button click that cancels modify appointment and moves to view appointment screen.
+     * Alerts if data has been modified confirming that the user would like to discard
+     * the data.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void cancelAppointmentButton(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) cancelAppointmentButton.getScene().getWindow();
         if (appointmentToMod.equals(newAppointment())) {
-            Stage stage = (Stage) cancelAppointmentButton.getScene().getWindow();
             GlobalController.viewAppointmentScreen(stage);
         }
         else {
             Optional<ButtonType> userResponse = Confirm.cancelMod();
             if (userResponse.isPresent() && userResponse.get() == ButtonType.OK) {
-                Stage stage = (Stage) cancelAppointmentButton.getScene().getWindow();
                 GlobalController.viewAppointmentScreen(stage);
             }
         }
     }
 
+    /**
+     * On start time combo box new selection, a new list of times are generated
+     * for the end time combo box. This prevents a user from selecting an end time
+     * after the selected start time.
+     * @param actionEvent Combobox selection
+     */
     public void onStartCombo(ActionEvent actionEvent) {
         LocalTime startTime = startComboBox.getSelectionModel().getSelectedItem();
         if (startTime != null)
@@ -190,6 +243,10 @@ public class ModifyAppointmentScreen implements Initializable {
             endComboBox.setItems(Hours.getEndTimes());
     }
 
+    /**
+     * Creates a new appointment object.
+     * @return Appointment object.
+     */
     public Appointment newAppointment() {
         return new Appointment(
                 appointmentToMod.getId(),

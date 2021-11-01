@@ -2,6 +2,10 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model for Customer object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class Customer {
     private int id;
     private String name;
@@ -113,8 +117,7 @@ public class Customer {
     }
 
     public boolean equals(Customer other) {
-        return this.id == other.getId() &&
-            this.name.equals(other.getName()) &&
+        return this.name.equals(other.getName()) &&
             this.address.equals(other.getAddress()) &&
             this.postalCode.equals(other.getPostalCode()) &&
             this.phone.equals(other.getPhone()) &&

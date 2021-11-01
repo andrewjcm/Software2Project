@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * Model for Contact object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class Contact {
     private int id;
     private String name;

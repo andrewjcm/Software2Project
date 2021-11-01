@@ -8,9 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Contact data access object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class ContactsDao {
     public static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
 
+    /**
+     * Creates a Contact object from a database results set.
+     * @param rs Results Set
+     * @return Contact object.
+     * @throws SQLException
+     */
     private static Contact createContactObj(ResultSet rs) throws SQLException {
         int id = rs.getInt("Contact_ID");
         String name = rs.getString("Contact_Name");
@@ -19,6 +29,10 @@ public class ContactsDao {
         return new Contact(id, name, email);
     }
 
+    /**
+     * Gets all contacts from database if not already in program memory.
+     * @return ObservableList of contacts.
+     */
     public static ObservableList<Contact> getAllContacts() {
         if (allContacts.isEmpty()) {
             try {
@@ -37,15 +51,5 @@ public class ContactsDao {
         }
 
         return allContacts;
-    }
-
-    public static Contact getContact(int id) throws SQLException {
-        String sql = "SELECT * FROM Contacts WHERE Contact_ID=" + id;
-        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next())
-            return createContactObj(rs);
-        else
-            return null;
     }
 }

@@ -2,6 +2,10 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model for Division object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class Division {
     private int id;
     private String name;

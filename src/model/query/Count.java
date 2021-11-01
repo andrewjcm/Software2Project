@@ -1,5 +1,9 @@
 package model.query;
 
+/**
+ * Model for Count query.
+ * @author Andrew Cesar-Metzgus
+ */
 public class Count {
     private String str;
     private int count;

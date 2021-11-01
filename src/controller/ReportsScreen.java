@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for report screen.
+ * @author Andrew Cesar-Metzgus
+ */
 public class ReportsScreen implements Initializable {
     public Button appointmentsButton;
     public Button customersButton;
@@ -36,6 +40,12 @@ public class ReportsScreen implements Initializable {
     public TableColumn divCol;
     public TableColumn divCountCol;
 
+
+    /**
+     * Initializes report screen.
+     * @param url url
+     * @param resourceBundle Resource Bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -62,19 +72,39 @@ public class ReportsScreen implements Initializable {
 
     }
 
+    /**
+     * Moves to view appointments screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onAppointmentsButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) appointmentsButton.getScene().getWindow();
         GlobalController.viewAppointmentScreen(stage);
     }
 
+    /**
+     * Moves to view customers screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onCustomersButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) customersButton.getScene().getWindow();
         GlobalController.viewCustomerScreen(stage);
     }
 
+    /**
+     * Does nothing.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onReportsButton(ActionEvent actionEvent) throws IOException {
     }
 
+    /**
+     * Moves to login screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onLogoutButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         GlobalController.loginScreen(stage);

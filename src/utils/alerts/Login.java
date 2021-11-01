@@ -6,10 +6,16 @@ import model.Appointment;
 
 import java.util.ResourceBundle;
 
+/**
+ * Login alert object.
+ */
 public class Login {
 
     private static final ResourceBundle resourceBundle = GlobalController.getResourceBundle();
 
+    /**
+     * No username entered alert.
+     */
     public static void noUsername(){
         Alert warning = new Alert(
                 Alert.AlertType.WARNING, resourceBundle.getString("No_Username")
@@ -20,6 +26,9 @@ public class Login {
         warning.showAndWait();
     }
 
+    /**
+     * No password entered alert.
+     */
     public static void noPassword(){
         Alert warning = new Alert(
                 Alert.AlertType.WARNING, resourceBundle.getString("No_Password")
@@ -31,6 +40,9 @@ public class Login {
 
     }
 
+    /**
+     * Invalid credentials alert.
+     */
     public static void invalidCredentials(){
         Alert warning = new Alert(
                 Alert.AlertType.WARNING, resourceBundle.getString("Invalid_Creds")
@@ -42,6 +54,10 @@ public class Login {
 
     }
 
+    /**
+     * User has upcoming appointment alert.
+     * @param appt Upcoming appointment.
+     */
     public static void appointment(Appointment appt) {
         Alert message = new Alert(
                 Alert.AlertType.INFORMATION, resourceBundle.getString("ID") +
@@ -54,6 +70,9 @@ public class Login {
         message.showAndWait();
     }
 
+    /**
+     * User has no upcoming appointments alert.
+     */
     public static void appointment() {
         Alert message = new Alert(
                 Alert.AlertType.INFORMATION, resourceBundle.getString("No_Appointments_Text")

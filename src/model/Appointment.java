@@ -2,6 +2,10 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model for Appointment object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class Appointment {
     private int id;
     private String title;

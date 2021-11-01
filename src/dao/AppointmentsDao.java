@@ -12,15 +12,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
+/**
+ * Database access object for User model.
+ * @author Andrew Cesar-Metzgus
+ */
 public class AppointmentsDao {
 
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
     private static int apptId = -1;
 
+    /**
+     * Gets next id.
+     * @return int Next ID.
+     */
     public static int getIncrementedApptId() {
         if (apptId == -1){
             int lastApptIndex = allAppointments.size()-1;
@@ -30,6 +36,12 @@ public class AppointmentsDao {
         return ++apptId;
     }
 
+    /**
+     * Filters list of appointments by date,
+     * @param start LocalDateTime start.
+     * @param end LocalDateTime end.
+     * @return ObservableList of Appointments.
+     */
     public static ObservableList<Appointment> filterByDateRange(LocalDateTime start, LocalDateTime end){
         ObservableList<Appointment> filteredAppts = FXCollections.observableArrayList();
 
@@ -40,6 +52,12 @@ public class AppointmentsDao {
         return filteredAppts;
     }
 
+    /**
+     * Creates an Appointment object from a database results set.
+     * @param rs Results Set
+     * @return Appointment object.
+     * @throws SQLException
+     */
     private static Appointment createAppointmentObj(ResultSet rs) throws SQLException {
         int id = rs.getInt("Appointment_ID");
         String title = rs.getString("Title");
@@ -75,6 +93,10 @@ public class AppointmentsDao {
                 customer, user, contact);
     }
 
+    /**
+     * Gets all appointments from the database if does not already exist in program memory.
+     * @return ObservableList of Appointments.
+     */
     public static ObservableList<Appointment> getAllAppointments() {
 
         if (allAppointments.isEmpty()) {
@@ -95,6 +117,11 @@ public class AppointmentsDao {
         return allAppointments;
     }
 
+    /**
+     * Adds appointment to database and program memory,
+     * @param appt Appointment object.
+     * @throws SQLException
+     */
     public static void addAppointment(Appointment appt) throws SQLException {
 
         String sql = "INSERT INTO Appointments (" +
@@ -120,17 +147,23 @@ public class AppointmentsDao {
 
         ps.execute();
 
-        // add to ram list
+        // Add to ram list
         apptId = getLastAddedAppt().getId();
         appt.setId(apptId);
         allAppointments.add(appt);
     }
 
+    /**
+     * Deletes appointment from database and program memory.
+     * @param appt Appointment object.
+     * @throws SQLException
+     */
     public static void deleteAppointment(Appointment appt) throws SQLException {
 
-        String sql = "DELETE FROM Appointments WHERE Appointment_ID=" + appt.getId();
+        String sql = "DELETE FROM Appointments WHERE Appointment_ID=?";
 
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        ps.setInt(1, appt.getId());
 
         ps.execute();
 
@@ -140,6 +173,13 @@ public class AppointmentsDao {
             allAppointments.remove(appt);
     }
 
+    /**
+     * Updates appointment from database and program memory.
+     * @param apptIndex int appointment index in program memory list.
+     * @param origAppt Original appointment object.
+     * @param newAppt New appointment object.
+     * @throws SQLException
+     */
     public static void updateAppointment(int apptIndex, Appointment origAppt, Appointment newAppt) throws SQLException {
         String sql = "UPDATE Appointments SET" +
                 " Title = ?," +
@@ -175,6 +215,11 @@ public class AppointmentsDao {
         allAppointments.set(apptIndex, newAppt);
     }
 
+    /**
+     * Get's the last added appointment from the database.
+     * @return Appointment object or null.
+     * @throws SQLException
+     */
     public static Appointment getLastAddedAppt() throws SQLException {
         String sql = "SELECT * FROM Appointments ORDER BY Appointment_ID DESC LIMIT 1";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -185,9 +230,31 @@ public class AppointmentsDao {
             return null;
     }
 
+    /**
+     * Logic: checks if appointment time is available.
+     * @param start LocalDateTime start time
+     * @param end LocalDateTime end time
+     * @return
+     */
     public static boolean openAppointmentTime(LocalDateTime start, LocalDateTime end) {
         for (Appointment appt: allAppointments){
             if (appt.getStart().equals(start) ||
+                    (appt.getStart().isAfter(start) && appt.getStart().isBefore(end)))
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * Logic: checks if appointment time is available.
+     * @param apptToMod Appoitnment to modify.
+     * @param start LocalDateTime start time
+     * @param end LocalDateTime end time
+     * @return
+     */
+    public static boolean openAppointmentTime(Appointment apptToMod, LocalDateTime start, LocalDateTime end) {
+        for (Appointment appt: allAppointments){
+            if (!appt.equals(apptToMod) && appt.getStart().equals(start) ||
                     (appt.getStart().isAfter(start) && appt.getStart().isBefore(end)))
                 return false;
         }

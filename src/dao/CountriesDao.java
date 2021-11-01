@@ -10,10 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-
+/**
+ * Country data access object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class CountriesDao {
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
 
+    /**
+     * Creates a Country object from a database results set.
+     * @param rs Results Set
+     * @return Country object.
+     * @throws SQLException
+     */
     private static Country createCountryObj(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Country_ID");
         String name = resultSet.getString("Country");
@@ -25,6 +34,10 @@ public class CountriesDao {
         return new Country(id, name, ZoneLocalize.toSysDefault(createDate), createdBy, ZoneLocalize.toSysDefault(updateDate), updatedBy);
     }
 
+    /**
+     * Gets all countries from database if not already in program memory.
+     * @return ObservableList of countries.
+     */
     public static ObservableList<Country> getAllCountries () {
         if (allCountries.isEmpty()) {
             try {
@@ -43,15 +56,5 @@ public class CountriesDao {
         }
 
         return allCountries;
-    }
-
-    public static Country getCountry(int id) throws SQLException {
-            String sql = "SELECT * FROM Countries WHERE Country_ID=" + id;
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                return createCountryObj(rs);
-            else
-                return null;
     }
 }

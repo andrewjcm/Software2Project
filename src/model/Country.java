@@ -2,6 +2,10 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model for Country object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class Country {
     private int id;
     private String name;

@@ -2,7 +2,6 @@ package dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Appointment;
 import model.Customer;
 import model.Division;
 import utils.time.ZoneLocalize;
@@ -12,11 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Customer data access object.
+ * @author Andrew Cesar-Metzgus
+ */
 public class CustomersDao {
 
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static int custId = -1;
 
+    /**
+     * Gets next id.
+     * @return int Next ID.
+     */
     public static int getIncrementedCustId() {
         if (custId == -1){
             int lastApptIndex = allCustomers.size()-1;
@@ -26,6 +33,12 @@ public class CustomersDao {
         return ++custId;
     }
 
+    /**
+     * Creates an Customer object from a database results set.
+     * @param rs Results Set
+     * @return Customer object.
+     * @throws SQLException
+     */
     private static Customer createCustomerObj(ResultSet rs) throws SQLException {
             int id = rs.getInt("Customer_ID");
             String name = rs.getString("Customer_Name");
@@ -49,6 +62,10 @@ public class CustomersDao {
             );
     }
 
+    /**
+     * Gets all customers from the database if does not already exist in program memory.
+     * @return ObservableList of Customers.
+     */
     public static ObservableList<Customer> getAllCustomers() {
         if (allCustomers.isEmpty()) {
             try {
@@ -69,16 +86,11 @@ public class CustomersDao {
         return allCustomers;
     }
 
-    public static Customer getCustomer(int id) throws SQLException {
-            String sql = "SELECT * FROM Customers WHERE Customer_ID=" + id;
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                return createCustomerObj(rs);
-            else
-                return null;
-    }
-
+    /**
+     * Adds customer to database and program memory,
+     * @param appt Customer object.
+     * @throws SQLException
+     */
     public static void addCustomer(Customer customer) throws SQLException {
         String sql = "INSERT INTO Customers ("
                 + "Customer_Name, Address, Postal_Code, Phone, Create_Date,"
@@ -105,6 +117,11 @@ public class CustomersDao {
         allCustomers.add(customer);
     }
 
+    /**
+     * Deletes customer from database and program memory.
+     * @param appt Customer object.
+     * @throws SQLException
+     */
     public static void deleteCustomer(Customer customer) throws SQLException {
 
         String sql = "DELETE FROM Appointments WHERE Customer_ID=" + customer.getId();
@@ -119,6 +136,13 @@ public class CustomersDao {
             allCustomers.remove(customer);
     }
 
+    /**
+     * Updates customer from database and program memory.
+     * @param apptIndex int customer index in program memory list.
+     * @param origAppt Original customer object.
+     * @param newAppt New customer object.
+     * @throws SQLException
+     */
     public static void updateCustomer(int custIndex, Customer origCust, Customer newCust) throws SQLException {
         String sql = "UPDATE Customers SET" +
                 " Customer_Name = ?," +
@@ -146,6 +170,11 @@ public class CustomersDao {
         allCustomers.set(custIndex, newCust);
     }
 
+    /**
+     * Get's the last added customer from the database.
+     * @return Customer object or null.
+     * @throws SQLException
+     */
     public static Customer getLastAddedCust() throws SQLException {
         String sql = "SELECT * FROM Customers ORDER BY Customer_ID DESC LIMIT 1";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);

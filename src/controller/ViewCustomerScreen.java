@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
@@ -20,6 +19,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for view customer screen.
+ * @author Andrew Cesar-Metzgus
+ */
 public class ViewCustomerScreen implements Initializable {
     public Button appointmentsButton;
     public Button customersButton;
@@ -37,6 +40,11 @@ public class ViewCustomerScreen implements Initializable {
     public TableColumn customersPhoneCol;
     public TableColumn customersDivisionCol;
 
+    /**
+     * Initializes view customer screen.
+     * @param url url
+     * @param resourceBundle Resource Bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -51,31 +59,59 @@ public class ViewCustomerScreen implements Initializable {
 
     }
 
+    /**
+     * Moves to view appointments screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onAppointmentsButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) appointmentsButton.getScene().getWindow();
         GlobalController.viewAppointmentScreen(stage);
     }
 
+    /**
+     * Does nothing.
+     * @param actionEvent Button click.
+     */
     public void onCustomersButton(ActionEvent actionEvent) throws IOException {
-        Stage stage = (Stage) customersButton.getScene().getWindow();
-        GlobalController.viewCustomerScreen(stage);
     }
 
+    /**
+     * Moves to reports screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onReportsButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) reportsButton.getScene().getWindow();
         GlobalController.reportsScreen(stage);
     }
 
+    /**
+     * Moves to login screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onLogoutButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         GlobalController.loginScreen(stage);
     }
 
+    /**
+     * Moves to add customer screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onAddCustomerButton(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) addCustomerButton.getScene().getWindow();
         GlobalController.addCustomerScreen(stage);
     }
 
+    /**
+     * Moves to modify customer screen. Gets selected customer. Alerts if no
+     * customer selected.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onModifyCustomerButton(ActionEvent actionEvent) throws IOException {
         Customer selectedCust = (Customer) customersTable.getSelectionModel().getSelectedItem();
         if (selectedCust == null) {
@@ -88,6 +124,12 @@ public class ViewCustomerScreen implements Initializable {
         }
     }
 
+    /**
+     * Deletes selected customer from program memory and database. Alerts user if no customer
+     * selected and to confirm deletion.
+     * @param actionEvent Button click.
+     * @throws SQLException
+     */
     public void onDeleteCustomerButton(ActionEvent actionEvent) throws SQLException {
         Customer selectedCust = (Customer) customersTable.getSelectionModel().getSelectedItem();
         if (selectedCust == null)
@@ -119,6 +161,13 @@ public class ViewCustomerScreen implements Initializable {
 
     }
 
+    /**
+     * Moves to add appointment screen. Uses static method on appointment screen
+     * controller to set previous screen and return to view customer screen. If
+     * customer object was selected, it will be pre populated in add customer screen.
+     * @param actionEvent Button click.
+     * @throws IOException
+     */
     public void onAddCustomerAppointmentButton(ActionEvent actionEvent) throws IOException {
         Customer selectedCust = (Customer) customersTable.getSelectionModel().getSelectedItem();
 
