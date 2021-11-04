@@ -35,6 +35,13 @@ public class CustomersDao {
 
     /**
      * Creates an Customer object from a database results set.
+     * <p><br>
+     * <b>Lambda Use Justification</b>
+     *  In order to create a Customer Java class object within the program, it
+     *  it must contain a Division object. This is part of the relational database.
+     *  The lambda function queries the Division DOA to find the related object
+     *  more effectively using a stream and filter, rather than a for loop.
+     *  </p>
      * @param rs Results Set
      * @return Customer object.
      * @throws SQLException

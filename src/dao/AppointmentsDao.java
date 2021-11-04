@@ -54,6 +54,25 @@ public class AppointmentsDao {
 
     /**
      * Creates an Appointment object from a database results set.
+     * <p><br>
+     * <b>Lambda Use Justification</b>
+     *  In order to create an Appointment Java class object within the program, it
+     *  it must contain a Customer object. This is part of the relational database.
+     *  The lambda function queries the Customer DOA to find the related object
+     *  more effectively using a stream and filter, rather than a for loop.
+     *  </p>
+     * <b>Lambda Use Justification</b>
+     *  In order to create an Appointment Java class object within the program, it
+     *  it must contain a User object. This is part of the relational database.
+     *  The lambda function queries the User DOA to find the related object
+     *  more effectively using a stream and filter, rather than a for loop.
+     *  </p>
+     * <b>Lambda Use Justification</b>
+     *  In order to create an Appointment Java class object within the program, it
+     *  it must contain a Contact object. This is part of the relational database.
+     *  The lambda function queries the Contact DOA to find the related object
+     *  more effectively using a stream and filter, rather than a for loop.
+     *  </p>
      * @param rs Results Set
      * @return Appointment object.
      * @throws SQLException
