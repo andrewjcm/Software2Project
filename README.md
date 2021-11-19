@@ -5,7 +5,6 @@ It also runs pre-specified reports of the number of appointments by month, type 
 appointments for each Contact.
 
 ### Author
-Andrew Cesar-Metzgus<br>
 acesarm@wgu.edu<br>
 
 ### Application Version
